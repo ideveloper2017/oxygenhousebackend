@@ -7,10 +7,10 @@ import { Towns } from './town.entity';
 export class Buildings extends Model {
   
   @ManyToOne( type => Towns, town => town.buildings)
-  @JoinColumn({name: 'res_town_id', referencedColumnName:'id'})
-  town: Towns
+  @JoinColumn({name: 'town_id', referencedColumnName:'id'})
+  town_id: Towns
 
-  @Column()
+  @Column({unique: true})
   name: string;
 
   @Column()
@@ -24,4 +24,7 @@ export class Buildings extends Model {
   
   @Column() 
   apartment_number: number
+
+  @Column()
+  mk_price:number
 }
