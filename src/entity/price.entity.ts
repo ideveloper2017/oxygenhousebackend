@@ -6,11 +6,11 @@ import { Apartments } from './apartments.entity';
 export class Price extends Model {
   @ManyToOne((type) => Apartments, (apartments) => apartments.price)
   @JoinColumn({ name: 'apartment_id' })
-  apartments: Apartments
+  apartment_id: Apartments
 
   @Column()
   apartment_price: number;
 
   @Column()
-  is_active_price: string;
+  is_active_price: boolean;
 }
