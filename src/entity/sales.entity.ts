@@ -11,7 +11,7 @@ export class Sales extends Model {
 
   @ManyToOne((type) => Clients)
   @JoinColumn({name: 'client_id'})
-  client: Clients[];
+  client_id: Clients;
 
   @Column()
   total_price: number;
