@@ -4,7 +4,6 @@ import { CreateBuildingDto } from 'src/dtos/building-dto/create-building.dto';
 import { Buildings } from 'src/entity/buildings.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Towns } from 'src/entity/town.entity';
-import { Price } from 'src/entity/price.entity';
 import { Apartments } from 'src/entity/apartments.entity';
 
 @Injectable()
@@ -26,7 +25,7 @@ export class BuildingsService {
       building.entrance_number = createBuildingDto.entrance_number
       building.floor_number = createBuildingDto.floor_number
       building.apartment_number = createBuildingDto.apartment_number
-      building.mk_price = createBuildingDto.price
+      building.mk_price = createBuildingDto.mk_price
 
       building = await this.buildingRepository.save(building)
       console.log(building);
@@ -41,6 +40,7 @@ export class BuildingsService {
             apartment.entrance = entrance
             apartment.floor = floor
             apartment.room_number = kv++;
+            apartment.room_space = 58.5
 
             records.push(apartment);
           }
@@ -62,5 +62,9 @@ export class BuildingsService {
       console.timeEnd()
       return result
 
+    }
+    async findAllBuildings() {
+      const result = await this.buildingRepository.find()
+      return result
     }
 }
