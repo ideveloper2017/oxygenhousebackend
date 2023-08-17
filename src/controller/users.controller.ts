@@ -15,17 +15,17 @@ export class UsersController {
 
   @Post('/save')
   sigin(@Body() createUserDto:CreateUserDto){
-    return this.usersService.signin(createUserDto);
+   // return this.usersService.signIn(createUserDto);
   }
 
   @Put('/update')
   update(@Body() createUserDto:CreateUserDto){
-    return this.usersService.signin(createUserDto);
+   // return this.usersService.signIn(createUserDto);
   }
 
   @Patch('/delete')
   edit(@Body() createUserDto:CreateUserDto){
-    return this.usersService.signin(createUserDto);
+   // return this.usersService.signIn(createUserDto);
   }
 
 

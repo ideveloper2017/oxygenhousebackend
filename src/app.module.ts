@@ -37,6 +37,9 @@ import { PaymentMethodsModule } from './modules/payment_methods/payment_methods.
 import { TownController } from './controller/town.controller';
 import { TownService } from './service/town.service';
 import { TownModule } from './modules/town/town.module';
+import { AuthController } from './controller/auth/auth.controller';
+import { AuthService } from './service/auth.service';
+
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -63,6 +66,7 @@ import * as Joi from '@hapi/joi';
     RolesModule,
     PaymentMethodsModule,
     TownModule,
+
   ],
   controllers: [
     UsersController,
@@ -77,6 +81,7 @@ import * as Joi from '@hapi/joi';
     SaleDetailsController,
     UserRolesController,
     TownController,
+
   ],
   providers: [
     UsersService,
@@ -91,6 +96,7 @@ import * as Joi from '@hapi/joi';
     UserRolesService,
     SalesService,
     TownService,
+
   ],
 })
 export class AppModule {

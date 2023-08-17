@@ -13,8 +13,11 @@ export class UsersService {
     return { message: 'All users', data: users };
   }
 
-  public async signin(userDto:CreateUserDto){
-    await this.dataSource.manager.getRepository(Users).find({where:{}})
+
+  public async signIn(username:string){
+    return await this.dataSource.manager.getRepository(Users).findOne({where:{username:username}}).then((data)=>{
+        return data
+    })
   }
 
   
