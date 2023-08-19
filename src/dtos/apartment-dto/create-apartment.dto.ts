@@ -2,6 +2,9 @@ import { Buildings } from "src/entity/buildings.entity";
 
 export class CreateApartmentDto {
   building_id: Buildings;
-  rooms?: number;
-  room_space?: string;
+  entrance: number
+  floor: number
+  room_number: number;
+  cells: number
+  room_space: number;
 }

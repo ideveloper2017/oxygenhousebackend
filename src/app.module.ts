@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { DataSource } from 'typeorm';
 import { DatabaseModule } from './database/database.module';
 import { UsersController } from './controller/users.controller';
 import { ClientsController } from './controller/clients.controller';
@@ -37,6 +36,9 @@ import { PaymentMethodsModule } from './modules/payment_methods/payment_methods.
 import { TownController } from './controller/town.controller';
 import { TownService } from './service/town.service';
 import { TownModule } from './modules/town/town.module';
+import { CurraceisController } from './controller/curraceis.controller';
+import { CurraceisModule } from './modules/curraceis/curraceis.module';
+import { CurraceisService } from './service/curraceis.service';
 import * as Joi from '@hapi/joi';
 
 @Module({
@@ -63,6 +65,7 @@ import * as Joi from '@hapi/joi';
     RolesModule,
     PaymentMethodsModule,
     TownModule,
+    CurraceisModule,
   ],
   controllers: [
     UsersController,
@@ -77,6 +80,7 @@ import * as Joi from '@hapi/joi';
     SaleDetailsController,
     UserRolesController,
     TownController,
+    CurraceisController,
   ],
   providers: [
     UsersService,
@@ -91,6 +95,7 @@ import * as Joi from '@hapi/joi';
     UserRolesService,
     SalesService,
     TownService,
+    CurraceisService,
   ],
 })
 export class AppModule {
