@@ -55,8 +55,7 @@ import * as Joi from '@hapi/joi';
       }),
     }),
     DatabaseModule,
-    AuthModule,
-    UsersModule,
+     UsersModule,
     BuildingsModule,
     ApartmentsModule,
     ClientsModule,
@@ -80,8 +79,7 @@ import * as Joi from '@hapi/joi';
     PaymentMethodsController,
     SaleDetailsController,
     UserRolesController,
-    TownController,
-
+    TownController
   ],
   providers: [
     UsersService,
