@@ -1,5 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateBuildingDto } from 'src/dtos/building-dto/create-building.dto';
 import { BuildingsService } from 'src/service/buildings.service';
 
@@ -8,8 +8,15 @@ import { BuildingsService } from 'src/service/buildings.service';
 export class BuildingsController {
   constructor(private readonly buildingsService: BuildingsService) {}
 
-  @Post('')
+  @ApiOperation({ summary: 'Bino yaratish ichidagi kvartiralari bilan' })
+  @Post('/add')
   addBuilding(@Body() createBuildingDto: CreateBuildingDto) {
     return this.buildingsService.createBuilding(createBuildingDto);
+  }
+
+  @ApiOperation({ summary: "Mavjud barcha binolar ro'yxatini olish" })
+  @Get('/all')
+  getAllBuildings() {
+    return this.buildingsService.findAllBuildings();
   }
 }

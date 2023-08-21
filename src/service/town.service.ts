@@ -8,8 +8,18 @@ import { Repository } from 'typeorm';
 export class TownService {
     constructor(@InjectRepository(Towns) private readonly townRepository: Repository<Towns>) {}
 
-    async create(createTownDto: CreateTownDto) {
+    async createTown(createTownDto: CreateTownDto) {
+        const town = await this.townRepository.findBy({name: createTownDto.name})
+        if(town){
+            return {status: 200, data:[], message: "Bu nomdagi turar-joy mavjud"}
+        }
         const newTown = await this.townRepository.save(createTownDto)
         return {status:201, data:newTown, message: 'Town created successfully'}
+    }
+
+
+    async findAllTowns() {
+        const towns = await this.townRepository.find()
+        return towns
     }
 }
