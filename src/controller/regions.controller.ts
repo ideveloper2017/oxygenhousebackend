@@ -22,6 +22,7 @@ export class RegionsController {
     private readonly regionService: RegionsService,
     private readonly distrService: DistrictsService,
   ) {}
+
   @Get('/regionlist')
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   public regionList(@Res() res: Response) {
@@ -89,6 +90,7 @@ export class RegionsController {
           .send({ success: false, message: error });
       });
   }
+
   @Get('/filldateregion')
   public fillDataregion() {
     return this.regionService.fillDataRegion();

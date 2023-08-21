@@ -18,7 +18,7 @@ export class Apartments extends Model {
   @Column()
   floor: number;
 
-  @Column({nullable: true })
+  @Column({ nullable: true })
   room_number: number;
 
   @Column({ nullable: true })

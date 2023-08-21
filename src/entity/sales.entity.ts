@@ -6,11 +6,11 @@ import { Users } from './users.entity';
 @Entity('Sales')
 export class Sales extends Model {
   @ManyToOne((type) => Users)
-  @JoinColumn({name: 'user_id'})
+  @JoinColumn({ name: 'user_id' })
   user: Users[];
 
   @ManyToOne((type) => Clients)
-  @JoinColumn({name: 'client_id'})
+  @JoinColumn({ name: 'client_id' })
   client_id: Clients;
 
   @Column()

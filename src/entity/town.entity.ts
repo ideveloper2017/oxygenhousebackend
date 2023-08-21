@@ -13,13 +13,13 @@ export class Towns extends Model {
   @Column()
   district_id: number;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   address: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   contact_number: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   logo: string;
 
   @OneToMany(() => Buildings, (building) => building.town_id)

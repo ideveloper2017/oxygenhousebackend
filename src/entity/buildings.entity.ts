@@ -5,12 +5,11 @@ import { Towns } from './town.entity';
 
 @Entity('Buildings')
 export class Buildings extends Model {
-  
-  @ManyToOne( type => Towns, town => town.buildings)
-  @JoinColumn({name: 'town_id', referencedColumnName:'id'})
-  town_id: Towns
+  @ManyToOne((type) => Towns, (town) => town.buildings)
+  @JoinColumn({ name: 'town_id', referencedColumnName: 'id' })
+  town_id: Towns;
 
-  @Column({unique: true})
+  @Column({ unique: true })
   name: string;
 
   @Column()
@@ -21,10 +20,10 @@ export class Buildings extends Model {
 
   @OneToMany((type) => Apartments, (apartment) => apartment.building_id)
   apartments: Apartments[];
-  
-  @Column() 
-  apartment_number: number
 
   @Column()
-  mk_price:number
+  apartment_number: number;
+
+  @Column()
+  mk_price: number;
 }

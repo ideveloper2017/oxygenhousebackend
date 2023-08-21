@@ -1,7 +1,7 @@
-import {Body, Controller, Get, Patch, Post, Put} from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from 'src/service/users.service';
-import {CreateUserDto} from "../dtos/user-dto/create-user.dto";
+import { CreateUserDto } from '../dtos/user-dto/create-user.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -14,19 +14,17 @@ export class UsersController {
   }
 
   @Post('/save')
-  sigin(@Body() createUserDto:CreateUserDto){
-   // return this.usersService.signIn(createUserDto);
+  sigin(@Body() createUserDto: CreateUserDto) {
+    // return this.usersService.signIn(createUserDto);
   }
 
   @Put('/update')
-  update(@Body() createUserDto:CreateUserDto){
-   // return this.usersService.signIn(createUserDto);
+  update(@Body() createUserDto: CreateUserDto) {
+    // return this.usersService.signIn(createUserDto);
   }
 
   @Patch('/delete')
-  edit(@Body() createUserDto:CreateUserDto){
-   // return this.usersService.signIn(createUserDto);
+  edit(@Body() createUserDto: CreateUserDto) {
+    // return this.usersService.signIn(createUserDto);
   }
-
-
 }

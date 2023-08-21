@@ -23,6 +23,7 @@ export class ClientsController {
   getAllClients() {
     return this.clientsService.findAllClients();
   }
+
   @ApiOperation({ summary: "Mijoz ma'lumotlarini tahrirlash" })
   @ApiResponse({ status: 200, description: "Mijoz ma'lumotlari tahrirlandi." })
   @Patch('/edit/:id')
