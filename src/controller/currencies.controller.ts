@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Patch } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CurrenciesService } from 'src/service/currencies.service';
 
+@ApiTags('Currencies')
 @Controller('currency')
 export class CurrenciesController {
   constructor(private readonly currancyService: CurrenciesService) {}
