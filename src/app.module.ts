@@ -40,6 +40,10 @@ import { CurraceisController } from './controller/curraceis.controller';
 import { CurraceisModule } from './modules/curraceis/curraceis.module';
 import { CurraceisService } from './service/curraceis.service';
 import * as Joi from '@hapi/joi';
+import {RegionsModule} from "./modules/regions/regions.module";
+import {RegionsController} from "./controller/regions.controller";
+import {RegionsService} from "./service/regions.service";
+import {DistrictsService} from "./service/districts.service";
 
 @Module({
   imports: [
@@ -66,6 +70,7 @@ import * as Joi from '@hapi/joi';
     PaymentMethodsModule,
     TownModule,
     CurraceisModule,
+    RegionsModule
   ],
   controllers: [
     UsersController,
@@ -81,6 +86,7 @@ import * as Joi from '@hapi/joi';
     UserRolesController,
     TownController,
     CurraceisController,
+    RegionsController
   ],
   providers: [
     UsersService,
@@ -96,8 +102,15 @@ import * as Joi from '@hapi/joi';
     SalesService,
     TownService,
     CurraceisService,
+    RegionsService,
+    DistrictsService
   ],
 })
 export class AppModule {
-  constructor() {}
+  constructor(
+    private regionServ: RegionsService,
+    private distServ: DistrictsService) {
+    regionServ.fillDataRegion();
+    distServ.fillDataDistrict();
+  }
 }
