@@ -12,13 +12,13 @@ export class UsersService {
 
   async getUsers() {
     const users = await this.usersRepository.find()
-    return {status: 200, data: users, message: 'Success'}
+    return { status: 200, data: users, message: 'Success' };
   }
 
 
-  public async signIn(username:string){
-    return await this.dataSource.manager.getRepository(Users).findOne({where:{username:username}}).then((data)=>{
-        return data
+  public async signIn(username: string) {
+    return await this.usersRepository.manager.getRepository(Users).findOne({where:{username:username}}).then((data)=>{
+        return data;
     })
   }
 
