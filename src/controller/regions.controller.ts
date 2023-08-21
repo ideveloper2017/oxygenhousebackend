@@ -1,0 +1,83 @@
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Res, UseInterceptors } from "@nestjs/common";
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { RegionsService } from '../../services/regions/regions.service';
+import { Response } from 'express';
+import { RegionDto } from '../../dto/region/region.dto';
+import {DistrictsService} from "../../services/regions/districts.service";
+
+// @UseInterceptors(LoggingInterceptor)
+@ApiTags('regions')
+@Controller('regions')
+export class RegionsController {
+  constructor(private readonly regionService: RegionsService,
+              private readonly distrService:DistrictsService) {}
+  @Get('/regionlist')
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  public regionList(@Res() res: Response) {
+    const regions = this.regionService.getAllRegion();
+    regions
+      .then((data) => {
+        if (data.length > 0) {
+          res.status(200).json({ success: true, data: data });
+        } else {
+          res.status(400).send({ success: false, data: [] });
+        }
+      })
+      .catch((error) => {
+        throw new HttpException(
+          {
+            status: HttpStatus.FORBIDDEN,
+            error: 'This is a custom message',
+          },
+          HttpStatus.FORBIDDEN,
+          {
+            cause: error,
+          },
+        );
+      });
+  }
+
+  @Get('/distrlist')
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  public distrList(@Res() res: Response) {
+    const regions = this.distrService.getAllDistricts();
+    regions
+        .then((data) => {
+          if (data.length > 0) {
+            res.status(200).json({ success: true, data: data });
+          } else {
+            res.status(400).send({ success: false, data: [] });
+          }
+        })
+        .catch((error) => {
+          throw new HttpException(
+              {
+                status: HttpStatus.FORBIDDEN,
+                error: 'This is a custom message',
+              },
+              HttpStatus.FORBIDDEN,
+              {
+                cause: error,
+              },
+          );
+        });
+  }
+
+  @Post('addregion')
+  public addregion(@Body() regionDto: RegionDto, @Res() res: Response) {
+    this.regionService
+      .insertRegion(regionDto)
+      .then((data) => {
+        res
+          .status(HttpStatus.CREATED)
+          .send({ success: true, message: 'created success!!!', data: data });
+      })
+      .catch((error) => {
+        res.status(HttpStatus.FORBIDDEN).send({ success: false, message: error });
+      });
+  }
+  @Get('/filldateregion')
+  public fillDataregion() {
+    return this.regionService.fillDataRegion();
+  }
+}

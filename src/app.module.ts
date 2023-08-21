@@ -37,9 +37,10 @@ import { TownController } from './controller/town.controller';
 import { TownService } from './service/town.service';
 import { TownModule } from './modules/town/town.module';
 import * as Joi from '@hapi/joi';
-import { CurrenciesController } from './controller/currencies.controller';
-import { CurrenciesModule } from './modules/currencies/currencies.module';
-import { CurrenciesService } from './service/currencies.service';
+import {RegionsModule} from "./modules/regions/regions.module";
+import {RegionsController} from "./controller/regions.controller";
+import {RegionsService} from "./service/regions.service";
+import {DistrictsService} from "./service/districts.service";
 
 @Module({
   imports: [
@@ -95,9 +96,16 @@ import { CurrenciesService } from './service/currencies.service';
     UserRolesService,
     SalesService,
     TownService,
-    CurrenciesService,
+    CurraceisService,
+    RegionsService,
+    DistrictsService
   ],
 })
 export class AppModule {
-  constructor() {}
+  constructor(
+    private regionServ: RegionsService,
+    private distServ: DistrictsService) {
+    regionServ.fillDataRegion();
+    distServ.fillDataDistrict();
+  }
 }
