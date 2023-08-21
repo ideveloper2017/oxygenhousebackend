@@ -10,7 +10,7 @@ export class TownService {
 
     async createTown(createTownDto: CreateTownDto) {
         const town = await this.townRepository.findBy({name: createTownDto.name})
-        if(town){
+        if(town.length != 0){
             return {status: 200, data:[], message: "Bu nomdagi turar-joy mavjud"}
         }
         const newTown = await this.townRepository.save(createTownDto)
