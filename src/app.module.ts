@@ -41,6 +41,9 @@ import {RegionsModule} from "./modules/regions/regions.module";
 import {RegionsController} from "./controller/regions.controller";
 import {RegionsService} from "./service/regions.service";
 import {DistrictsService} from "./service/districts.service";
+import { CurrenciesController } from './controller/currencies.controller';
+import { CurrenciesModule } from './modules/currencies/currencies.module';
+import { CurrenciesService } from './service/currencies.service';
 
 @Module({
   imports: [
@@ -96,7 +99,7 @@ import {DistrictsService} from "./service/districts.service";
     UserRolesService,
     SalesService,
     TownService,
-    CurraceisService,
+    CurrenciesService,
     RegionsService,
     DistrictsService
   ],
