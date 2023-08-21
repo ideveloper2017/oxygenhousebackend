@@ -1,10 +1,9 @@
-import { Buildings } from "src/entity/buildings.entity";
-
+import { Buildings } from 'src/entity/buildings.entity';
 export class CreateApartmentDto {
   building_id: Buildings;
-  entrance: number
-  floor: number
+  entrance: number;
+  floor: number;
   room_number: number;
-  cells: number
+  cells: number;
   room_space: number;
 }
