@@ -41,9 +41,11 @@ import { AuthController } from './controller/auth/auth.controller';
 import { AuthService } from './service/auth.service';
 
 import * as Joi from '@hapi/joi';
+import {ConfigurationModule} from "../config/config.module";
 
 @Module({
   imports: [
+    ConfigurationModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -69,6 +71,7 @@ import * as Joi from '@hapi/joi';
 
   ],
   controllers: [
+    AuthController,
     UsersController,
     ClientsController,
     ApartmentsController,
