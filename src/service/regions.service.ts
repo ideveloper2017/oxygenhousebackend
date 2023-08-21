@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Regions } from '../entity';
+
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RegionDto } from "../../dto/region/region.dto";
-
+import { Regions } from '../entity/region.entity';
+import { RegionDto } from '../dtos/region.dto';
 @Injectable()
 export class RegionsService {
   constructor(
@@ -13,7 +13,6 @@ export class RegionsService {
   getAllRegion() {
     return this.regionRepository.find();
   }
-
   insertRegion(regionDto: RegionDto) {
     return this.regionRepository.save(regionDto);
   }
