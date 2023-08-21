@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { DataSource } from 'typeorm';
 import { DatabaseModule } from './database/database.module';
 import { UsersController } from './controller/users.controller';
 import { ClientsController } from './controller/clients.controller';
@@ -37,15 +36,13 @@ import { PaymentMethodsModule } from './modules/payment_methods/payment_methods.
 import { TownController } from './controller/town.controller';
 import { TownService } from './service/town.service';
 import { TownModule } from './modules/town/town.module';
-import { AuthController } from './controller/auth/auth.controller';
-import { AuthService } from './service/auth.service';
-
+import { CurraceisController } from './controller/curraceis.controller';
+import { CurraceisModule } from './modules/curraceis/curraceis.module';
+import { CurraceisService } from './service/curraceis.service';
 import * as Joi from '@hapi/joi';
-import {ConfigurationModule} from "../config/config.module";
 
 @Module({
   imports: [
-    ConfigurationModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -57,7 +54,8 @@ import {ConfigurationModule} from "../config/config.module";
       }),
     }),
     DatabaseModule,
-     UsersModule,
+    AuthModule,
+    UsersModule,
     BuildingsModule,
     ApartmentsModule,
     ClientsModule,
@@ -67,10 +65,9 @@ import {ConfigurationModule} from "../config/config.module";
     RolesModule,
     PaymentMethodsModule,
     TownModule,
-
+    CurraceisModule,
   ],
   controllers: [
-    AuthController,
     UsersController,
     ClientsController,
     ApartmentsController,
@@ -82,7 +79,8 @@ import {ConfigurationModule} from "../config/config.module";
     PaymentMethodsController,
     SaleDetailsController,
     UserRolesController,
-    TownController
+    TownController,
+    CurraceisController,
   ],
   providers: [
     UsersService,
@@ -97,7 +95,7 @@ import {ConfigurationModule} from "../config/config.module";
     UserRolesService,
     SalesService,
     TownService,
-
+    CurraceisService,
   ],
 })
 export class AppModule {

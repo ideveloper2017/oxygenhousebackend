@@ -1,11 +1,10 @@
-import { Buildings } from 'src/entity/buildings.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { Buildings } from "src/entity/buildings.entity";
 
 export class CreateApartmentDto {
-  @ApiProperty()
   building_id: Buildings;
-  @ApiProperty()
-  rooms?: number;
-  @ApiProperty()
-  room_space?: string;
+  entrance: number
+  floor: number
+  room_number: number;
+  cells: number
+  room_space: number;
 }
