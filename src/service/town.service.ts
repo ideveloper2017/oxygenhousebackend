@@ -15,6 +15,7 @@ export class TownService {
     if (town.length != 0) {
       return { status: 200, data: [], message: 'Bu nomdagi turar-joy mavjud' };
     }
+
     const newTown = await this.townRepository.save(createTownDto);
     return { status: 201, data: newTown, message: 'Town created successfully' };
   }
