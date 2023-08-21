@@ -70,6 +70,7 @@ import { CurrenciesService } from './service/currencies.service';
     PaymentMethodsModule,
     TownModule,
     CurrenciesModule,
+    RegionsModule
   ],
   controllers: [
     UsersController,
@@ -85,6 +86,7 @@ import { CurrenciesService } from './service/currencies.service';
     UserRolesController,
     TownController,
     CurrenciesController,
+    RegionsController
   ],
   providers: [
     UsersService,
