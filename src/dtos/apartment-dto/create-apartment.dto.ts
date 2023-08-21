@@ -14,3 +14,5 @@ export class CreateApartmentDto {
   @ApiProperty()
   room_space: number;
 }
+
+
