@@ -36,14 +36,14 @@ import { PaymentMethodsModule } from './modules/payment_methods/payment_methods.
 import { TownController } from './controller/town.controller';
 import { TownService } from './service/town.service';
 import { TownModule } from './modules/town/town.module';
-import { CurraceisController } from './controller/curraceis.controller';
-import { CurraceisModule } from './modules/curraceis/curraceis.module';
-import { CurraceisService } from './service/curraceis.service';
 import * as Joi from '@hapi/joi';
 import {RegionsModule} from "./modules/regions/regions.module";
 import {RegionsController} from "./controller/regions.controller";
 import {RegionsService} from "./service/regions.service";
 import {DistrictsService} from "./service/districts.service";
+import { CurrenciesController } from './controller/currencies.controller';
+import { CurrenciesModule } from './modules/currencies/currencies.module';
+import { CurrenciesService } from './service/currencies.service';
 
 @Module({
   imports: [
@@ -69,7 +69,7 @@ import {DistrictsService} from "./service/districts.service";
     RolesModule,
     PaymentMethodsModule,
     TownModule,
-    CurraceisModule,
+    CurrenciesModule,
     RegionsModule
   ],
   controllers: [
@@ -85,7 +85,7 @@ import {DistrictsService} from "./service/districts.service";
     SaleDetailsController,
     UserRolesController,
     TownController,
-    CurraceisController,
+    CurrenciesController,
     RegionsController
   ],
   providers: [
@@ -101,7 +101,7 @@ import {DistrictsService} from "./service/districts.service";
     UserRolesService,
     SalesService,
     TownService,
-    CurraceisService,
+    CurrenciesService,
     RegionsService,
     DistrictsService
   ],

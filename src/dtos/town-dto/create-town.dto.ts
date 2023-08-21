@@ -1,16 +1,19 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateTownDto {
-  @ApiProperty()
+  @ApiProperty({example: "Oxygen", description: "turar joy nomi"})
   name: string;
-  @ApiProperty()
+
+  @ApiProperty({example:2, description: "joylashgan viloyati"})
   region_id: number;
-  @ApiProperty()
+
+  @ApiProperty({example: 4, description: "joylashgan tumani"})
   district_id: number;
-  @ApiProperty()
+
+  @ApiProperty({example: "Afsona 43", description: "manzili"})
   address?: string;
-  @ApiProperty()
+
+
+  @ApiProperty({example:"+998 90 222 1122"})
   contact_number?: string;
-  @ApiProperty()
-  logo?: string;
 }
