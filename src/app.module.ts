@@ -37,10 +37,10 @@ import { TownController } from './controller/town.controller';
 import { TownService } from './service/town.service';
 import { TownModule } from './modules/town/town.module';
 import * as Joi from '@hapi/joi';
-import {RegionsModule} from "./modules/regions/regions.module";
-import {RegionsController} from "./controller/regions.controller";
-import {RegionsService} from "./service/regions.service";
-import {DistrictsService} from "./service/districts.service";
+import { RegionsModule } from './modules/regions/regions.module';
+import { RegionsController } from './controller/regions.controller';
+import { RegionsService } from './service/regions.service';
+import { DistrictsService } from './service/districts.service';
 import { CurrenciesController } from './controller/currencies.controller';
 import { CurrenciesModule } from './modules/currencies/currencies.module';
 import { CurrenciesService } from './service/currencies.service';
@@ -70,7 +70,7 @@ import { CurrenciesService } from './service/currencies.service';
     PaymentMethodsModule,
     TownModule,
     CurrenciesModule,
-    RegionsModule
+    RegionsModule,
   ],
   controllers: [
     UsersController,
@@ -86,7 +86,7 @@ import { CurrenciesService } from './service/currencies.service';
     UserRolesController,
     TownController,
     CurrenciesController,
-    RegionsController
+    RegionsController,
   ],
   providers: [
     UsersService,
@@ -103,13 +103,14 @@ import { CurrenciesService } from './service/currencies.service';
     TownService,
     CurrenciesService,
     RegionsService,
-    DistrictsService
+    DistrictsService,
   ],
 })
 export class AppModule {
   constructor(
     private regionServ: RegionsService,
-    private distServ: DistrictsService) {
+    private distServ: DistrictsService,
+  ) {
     regionServ.fillDataRegion();
     distServ.fillDataDistrict();
   }
