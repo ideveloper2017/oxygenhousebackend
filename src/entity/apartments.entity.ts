@@ -23,13 +23,16 @@ export class Apartments extends Model {
 
   @Column({ nullable: true })
   cells: number;
-
+  
   @Column({ nullable: true })
   room_space: number;
+  
+  @Column({enum: ['free', 'sold', 'bron', 'inactive'], nullable: true })
+  status: string
 
   @OneToMany((type) => Price, (price) => price.apartment_id)
   price: Price[];
-
+ 
   @OneToMany(
     (type) => Sale_details,
     (sales_details) => sales_details.apartment_id,
