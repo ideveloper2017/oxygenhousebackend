@@ -11,13 +11,20 @@ export class TownService {
   ) {}
 
   async createTown(createTownDto: CreateTownDto) {
-    const town = await this.townRepository.findBy({ name: createTownDto.name });
-    if (town.length != 0) {
-      return { status: 200, data: [], message: 'Bu nomdagi turar-joy mavjud' };
-    }
+    const town = await this.townRepository.findOne({
+      where: { name: createTownDto.name },
+    });
 
-    const newTown = await this.townRepository.save(createTownDto);
-    return { status: 201, data: newTown, message: 'Town created successfully' };
+    if (!town) {
+      return { status: 400, data: [], message: 'Bu nomdagi turar-joy mavjud' };
+    } else {
+      const newTown = await this.townRepository.save(createTownDto);
+      return {
+        status: 201,
+        data: newTown,
+        message: 'Town created successfully',
+      };
+    }
   }
 
   async findAllTowns() {
