@@ -4,7 +4,7 @@ import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto'
 import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
 import { ApartmentsService } from 'src/service/apartments.service';
 
-@ApiTags("Apartments")
+@ApiTags('Apartments')
 @Controller('apartments')
 export class ApartmentsController {
   constructor(private readonly apartmentsService: ApartmentsService) {}

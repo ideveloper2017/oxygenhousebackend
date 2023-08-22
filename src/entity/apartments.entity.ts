@@ -1,25 +1,25 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany} from 'typeorm';
 import Model from './model.entity';
-import { Buildings } from './buildings.entity';
-import { Price } from './price.entity';
-import { Sale_details } from './sale_details.entity';
-import { ApiTags } from '@nestjs/swagger';
+import {Buildings} from './buildings.entity';
+import {Price} from './price.entity';
+import {Sale_details} from './sale_details.entity';
+import {ApiTags} from '@nestjs/swagger';
 
 @ApiTags('Apartments')
 @Entity('Apartments')
 export class Apartments extends Model {
-  @ManyToOne((type) => Buildings, (building) => building.apartments)
-  @JoinColumn({ name: 'building_id' })
-  building_id: Buildings;
+    @ManyToOne((type) => Buildings, (building) => building.apartments)
+    @JoinColumn({name: 'building_id'})
+    building_id: Buildings;
 
-  @Column()
-  entrance: number;
+    @Column()
+    entrance: number;
 
-  @Column()
-  floor: number;
+    @Column()
+    floor: number;
 
-  @Column({nullable: true })
-  room_number: number;
+    @Column({nullable: true})
+    room_number: number;
 
   @Column({ nullable: true })
   cells: number;

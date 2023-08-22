@@ -1,4 +1,4 @@
-import { Column, Entity } from 'typeorm';
+import {Column, Entity} from 'typeorm';
 import Model from './model.entity';
 
 @Entity('Currencies')
@@ -8,5 +8,5 @@ export class Currencies extends Model {
     name: string;
 
     @Column()
-    is_selected: boolean
+    is_selected: boolean;
 }

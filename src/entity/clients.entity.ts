@@ -1,54 +1,54 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import {Column, Entity, OneToMany} from 'typeorm';
 import Model from './model.entity';
-import { Sales } from './sales.entity';
+import {Sales} from './sales.entity';
 
 @Entity('Clients')
 export class Clients extends Model {
-  @Column()
-  first_name: string;
+    @Column()
+    first_name: string;
 
-  @Column()
-  last_name: string;
+    @Column()
+    last_name: string;
 
-  @Column()
-  middle_name: string;
+    @Column()
+    middle_name: string;
 
-  @Column({ enum: ['male', 'female'] })
-  gender: string;
+    @Column({enum: ['male', 'female']})
+    gender: string;
 
-  @Column({ enum: ['jismoniy', 'yuridik'] })
-  type: string;
+    @Column({enum: ['jismoniy', 'yuridik']})
+    type: string;
 
-  @Column()
-  address: string;
+    @Column()
+    address: string;
 
-  @Column({ unique: true })
-  contact_number: string;
+    @Column({unique: true})
+    contact_number: string;
 
-  @Column({})
-  date_of_birth: Date;
+    @Column({})
+    date_of_birth: Date;
 
-  @Column({ nullable: false, unique: true })
-  passport_seria: string;
+    @Column({nullable: false, unique: true})
+    passport_seria: string;
 
-  @Column({ nullable: false })
-  given_from: string;
+    @Column({nullable: false})
+    given_from: string;
 
-  @Column({ nullable: false })
-  given_date: Date;
+    @Column({nullable: false})
+    given_date: Date;
 
-  @Column({ nullable: false })
-  untill_date: Date;
+    @Column({nullable: false})
+    untill_date: Date;
 
-  @Column({ nullable: true })
-  legal_address: string;
+    @Column({nullable: true})
+    legal_address: string;
 
-  @Column({ nullable: true })
-  registered_address: string;
+    @Column({nullable: true})
+    registered_address: string;
 
-  @Column({ nullable: true })
-  description: string;
+    @Column({nullable: true})
+    description: string;
 
-  @OneToMany((type) => Sales, (sales) => sales.client_id)
-  sales: Sales[];
+    @OneToMany((type) => Sales, (sales) => sales.client_id)
+    sales: Sales[];
 }

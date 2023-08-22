@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Response } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
 import { TownService } from 'src/service/town.service';
@@ -19,7 +19,21 @@ export class TownController {
 
   @ApiOperation({ summary: "mavjud turar-joylarni ro'yxatini olish" })
   @Get('/all')
-  getAllTowns() {
-    return this.townService.findAllTowns();
+  getAllTowns(@Response() res) {
+    return this.townService.findAllTowns().then((data) => {
+      if (data.length != 0) {
+        return res.send({
+          success: true,
+          data: data,
+          message: 'Fetch All Records!',
+        });
+      } else {
+        return res.send({
+          success: false,
+          data: null,
+          message: 'not file records!',
+        });
+      }
+    });
   }
 }

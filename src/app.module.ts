@@ -44,6 +44,11 @@ import { DistrictsService } from './service/districts.service';
 import { CurrenciesController } from './controller/currencies.controller';
 import { CurrenciesModule } from './modules/currencies/currencies.module';
 import { CurrenciesService } from './service/currencies.service';
+import { AuthController } from './controller/auth/auth.controller';
+import { AuthService } from './service/auth.service';
+import { JwtService } from '@nestjs/jwt';
+import { PremissionsService } from './service/premissions.service';
+import {PremissionsModule} from "./modules/premissions/premissions.module";
 
 @Module({
   imports: [
@@ -71,6 +76,7 @@ import { CurrenciesService } from './service/currencies.service';
     TownModule,
     CurrenciesModule,
     RegionsModule,
+    PremissionsModule,
   ],
   controllers: [
     UsersController,
@@ -87,6 +93,8 @@ import { CurrenciesService } from './service/currencies.service';
     TownController,
     CurrenciesController,
     RegionsController,
+    AuthController,
+
   ],
   providers: [
     UsersService,
@@ -104,14 +112,21 @@ import { CurrenciesService } from './service/currencies.service';
     CurrenciesService,
     RegionsService,
     DistrictsService,
+    AuthService,
+    JwtService,
+    PremissionsService
   ],
 })
 export class AppModule {
   constructor(
+    private permissionserv: PremissionsService,
+    private roleServ: RolesService,
     private regionServ: RegionsService,
     private distServ: DistrictsService,
   ) {
     regionServ.fillDataRegion();
     distServ.fillDataDistrict();
+    permissionserv.filldata();
+    roleServ.filldata();
   }
 }
