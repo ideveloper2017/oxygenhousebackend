@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Regions } from '../entity/region.entity';
 import { RegionDto } from '../dtos/region.dto';
+import {District} from "../entity/district.entity";
 @Injectable()
 export class RegionsService {
   constructor(
@@ -13,9 +14,13 @@ export class RegionsService {
   getAllRegion() {
     return this.regionRepository.find();
   }
-  insertRegion(regionDto: RegionDto) {
+
+  public insertRegion(regionDto: RegionDto) {
     return this.regionRepository.save(regionDto);
   }
+
+
+
   async fillDataRegion() {
     let regiondata;
     if (this.regionRepository.exist()) {
