@@ -16,14 +16,14 @@ export class TownService {
     });
 
     if (!town) {
-      return { status: 400, data: [], message: 'Bu nomdagi turar-joy mavjud' };
-    } else {
       const newTown = await this.townRepository.save(createTownDto);
       return {
         status: 201,
         data: newTown,
         message: 'Town created successfully',
       };
+    } else {
+      return { status: 400, data: [], message: 'Bu nomdagi turar-joy mavjud' };
     }
   }
 
