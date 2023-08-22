@@ -17,11 +17,16 @@ export class DistrictsService {
     });
   }
 
-  public async getSelectDistrict(id:number){
-    const region=await this.districtRepo.manager.getRepository(Regions).findOne({where:{id:id}}).then((data)=>{
-      return data.id
-    })
-    return this.districtRepo.manager.getRepository(District).find({where:{region:region}})
+  public async getSelectDistrict(id: number) {
+    const region = await this.districtRepo.manager
+      .getRepository(Regions)
+      .findOne({ where: { id: id } })
+      .then((data) => {
+        return data.id;
+      });
+    return this.districtRepo.manager
+      .getRepository(District)
+      .find({ where: { region: region } });
   }
 
   public fillDataDistrict = async () => {

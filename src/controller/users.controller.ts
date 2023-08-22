@@ -14,8 +14,8 @@ export class UsersController {
   }
 
   @Post('/save')
-  sigin(@Body() createUserDto: CreateUserDto) {
-    // return this.usersService.signIn(createUserDto);
+  public async createLogin(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createLogin(createUserDto);
   }
 
   @Put('/update')
