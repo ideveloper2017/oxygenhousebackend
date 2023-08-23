@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateBuildingDto } from 'src/dtos/building-dto/create-building.dto';
+import { UpdateBuildingDto } from 'src/dtos/building-dto/update-building.dto';
 import { BuildingsService } from 'src/service/buildings.service';
 
 @ApiTags('Buildings')
@@ -18,5 +19,15 @@ export class BuildingsController {
   @Get('/all')
   getAllBuildings() {
     return this.buildingsService.findAllBuildings();
+  }
+
+  @Patch('/edit/:id')
+  editBuilding(@Param('id') id: number, @Body() updateBuildingDto: UpdateBuildingDto) {
+    // return this.buildingsService.updateBuilding(id, updateBuildingDto)
+  }
+
+  @Delete('/delete/:id')
+  deleteBuilding(@Param('id') id: number) {
+    return this.buildingsService.deleteBuilding(id)
   }
 }

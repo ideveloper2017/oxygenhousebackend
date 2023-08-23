@@ -60,4 +60,13 @@ export class BuildingsService {
     const result = await this.buildingRepository.find();
     return result;
   }
+  
+  async deleteBuilding(id: number ) {
+    const result = await this.buildingRepository.delete(id);
+
+    if(result.affected != 0){
+      return {status: 200, data: [], message:"Bino o'chirildi"}
+    }
+    return {status: 404, data: [], message: "Bino topilmadi" };
+  }
 }

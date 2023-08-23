@@ -29,9 +29,7 @@ export class ApartmentsService {
 
   async updateApartment(id: number, updateApartmentDto: UpdateApartmentDto) {
 
-    console.log(updateApartmentDto);
     const editedApartment = await this.apartmentRepository.update({id: id}, updateApartmentDto)
-    console.log(editedApartment);
     if(editedApartment.affected == 0 ){
       return {status: 404, data:[] , message: "Kvartira topilmadi"}
     }

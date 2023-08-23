@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
+import { UpdateTownDto } from 'src/dtos/town-dto/update-town.dto';
 import { Towns } from 'src/entity/town.entity';
 import { Repository } from 'typeorm';
 
@@ -30,5 +31,22 @@ export class TownService {
   async findAllTowns() {
     const towns = await this.townRepository.find();
     return towns;
+  }
+
+  async updateTown(id: number , updateTownDto:UpdateTownDto) {
+    const  updatedTown = await this.townRepository.update(id, updateTownDto);
+    if(updatedTown.affected == 0 ){
+      return { status: 404 , data: [], message: "Turar-joy topilmadi!" }
+    }
+    return {status: 200, data: [], message: "Turar-joy tahrirlandi!"}
+  }
+
+  async deleteTown(id: number) {
+    const deletedTown = await this.townRepository.delete(id);
+
+    if(deletedTown.affected == 0) {
+      return { status: 404 , data: [], message: "Turar-joy topilmadi! " }
+    }
+    return {status: 200, data: [], message: "Turar-joy o'chirildi!"}
   }
 }
