@@ -29,7 +29,7 @@ export class TownService {
   }
 
   async findAllTowns() {
-    const towns = await this.townRepository.find();
+    const towns = await this.townRepository.find({ relations: ['buildings'] });
     return towns;
   }
 
