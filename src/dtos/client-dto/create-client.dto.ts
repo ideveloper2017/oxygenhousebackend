@@ -12,21 +12,20 @@ export class CreateClientDto {
   @IsString()
   last_name: string;
 
-  @ApiProperty({example: "Sardor ugli", description : "clients middlename"})
+  @ApiProperty({ example: 'Sardor ugli', description: 'clients middlename' })
   @IsString()
   middle_name: string;
 
-  @ApiProperty({example: 'male', description :"gender of client"})
+  @ApiProperty({ example: 'male', description: 'gender of client' })
   gender: string = 'male' || 'female';
 
-  @ApiProperty({example: "jismoniy", description: "type of client"})
+  @ApiProperty({ example: 'jismoniy', description: 'type of client' })
   type: string = 'jismoniy' || 'yuridik';
 
   @ApiProperty({
     example: 'Orlando Mallway street A4',
     description: 'clients address ',
   })
-
   @IsString()
   address: string;
 
@@ -34,30 +33,30 @@ export class CreateClientDto {
     example: '+998 90 112 2442',
     description: 'clients contact number ',
   })
-  @ApiProperty({example: '+998 90 112 2442', description:"mijoz tel raqami"})
+  @ApiProperty({ example: '+998 90 112 2442', description: 'mijoz tel raqami' })
   contact_number: string;
 
-  @ApiProperty({example: "1978-08-13"})
+  @ApiProperty({ example: '1978-08-13' })
   date_of_birth: Date;
-  
-  @ApiProperty({example: "AD4586321"})
+
+  @ApiProperty({ example: 'AD4586321' })
   passport_seria: string;
-  
-  @ApiProperty({example: "Namangan IIV"})
+
+  @ApiProperty({ example: 'Namangan IIV' })
   given_from: string;
-  
-  @ApiProperty({example: "1996-09-23"})
+
+  @ApiProperty({ example: '1996-09-23' })
   given_date: Date;
-  
-  @ApiProperty({example: "2006-08-13"})
+
+  @ApiProperty({ example: '2006-08-13' })
   untill_date: Date;
-  
-  @ApiProperty({example: "Namangan viloyati Oxunboboyev"})
+
+  @ApiProperty({ example: 'Namangan viloyati Oxunboboyev' })
   legal_address: string;
-  
-  @ApiProperty({example: "ro'yxatga olingan manzili"})
+
+  @ApiProperty({ example: "ro'yxatga olingan manzili" })
   registered_address: string;
-  
-  @ApiProperty({example: "izoh"})
+
+  @ApiProperty({ example: 'izoh' })
   description: string;
 }
