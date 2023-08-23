@@ -38,12 +38,14 @@ export class TownController {
     });
   }
 
+  @ApiOperation({summary: "Turar-joyni tahrirlash"})
   @Patch('/edit/:id')
   updateTown(@Param('id') id:number, @Body() updateTownDto: UpdateTownDto ){
 
     return this.townService.updateTown(id, updateTownDto)
   }
 
+  @ApiOperation({summary: "Turar-joyni o'chirish"})
   @Delete('/delete/:id')
   deleteTown(@Param('id') id:number ) {
     return this.townService.deleteTown(id)

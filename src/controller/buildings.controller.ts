@@ -20,12 +20,14 @@ export class BuildingsController {
   getAllBuildings() {
     return this.buildingsService.findAllBuildings();
   }
-
+  
+  @ApiOperation({summary: "Bino tahrirlash"})
   @Patch('/edit/:id')
   editBuilding(@Param('id') id: number, @Body() updateBuildingDto: UpdateBuildingDto) {
     // return this.buildingsService.updateBuilding(id, updateBuildingDto)
   }
 
+  @ApiOperation({summary: "Bino o'chirish"})
   @Delete('/delete/:id')
   deleteBuilding(@Param('id') id: number) {
     return this.buildingsService.deleteBuilding(id)
