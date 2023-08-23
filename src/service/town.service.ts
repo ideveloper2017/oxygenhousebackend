@@ -33,20 +33,20 @@ export class TownService {
     return towns;
   }
 
-  async updateTown(id: number , updateTownDto:UpdateTownDto) {
-    const  updatedTown = await this.townRepository.update(id, updateTownDto);
-    if(updatedTown.affected == 0 ){
-      return { status: 404 , data: [], message: "Turar-joy topilmadi!" }
+  async updateTown(id: number, updateTownDto: UpdateTownDto) {
+    const updatedTown = await this.townRepository.update(id, updateTownDto);
+    if (updatedTown.affected == 0) {
+      return { status: 404, data: [], message: 'Turar-joy topilmadi!' };
     }
-    return {status: 200, data: [], message: "Turar-joy tahrirlandi!"}
+    return { status: 200, data: [], message: 'Turar-joy tahrirlandi!' };
   }
 
   async deleteTown(id: number) {
     const deletedTown = await this.townRepository.delete(id);
 
-    if(deletedTown.affected == 0) {
-      return { status: 404 , data: [], message: "Turar-joy topilmadi! " }
+    if (deletedTown.affected == 0) {
+      return { status: 404, data: [], message: 'Turar-joy topilmadi! ' };
     }
-    return {status: 200, data: [], message: "Turar-joy o'chirildi!"}
+    return { status: 200, data: [], message: "Turar-joy o'chirildi!" };
   }
 }
