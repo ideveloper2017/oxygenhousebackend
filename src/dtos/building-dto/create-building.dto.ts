@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Towns } from 'src/entity/town.entity';
 
 export class CreateBuildingDto {
   

@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Response } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Response } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
+import { UpdateTownDto } from 'src/dtos/town-dto/update-town.dto';
 import { TownService } from 'src/service/town.service';
 
 @ApiTags('Towns')
@@ -35,5 +36,18 @@ export class TownController {
         });
       }
     });
+  }
+
+  @ApiOperation({summary: "Turar-joyni tahrirlash"})
+  @Patch('/edit/:id')
+  updateTown(@Param('id') id:number, @Body() updateTownDto: UpdateTownDto ){
+
+    return this.townService.updateTown(id, updateTownDto)
+  }
+
+  @ApiOperation({summary: "Turar-joyni o'chirish"})
+  @Delete('/delete/:id')
+  deleteTown(@Param('id') id:number ) {
+    return this.townService.deleteTown(id)
   }
 }

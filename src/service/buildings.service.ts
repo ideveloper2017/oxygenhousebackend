@@ -14,7 +14,6 @@ export class BuildingsService {
   ) {}
 
   async createBuilding(createBuildingDto: CreateBuildingDto) {
-    console.time();
 
     const town = new Towns();
     town.id = createBuildingDto.town_id;
@@ -32,11 +31,7 @@ export class BuildingsService {
 
     let kv = 1;
     const records = [];
-    for (
-      let entrance = 1;
-      entrance <= createBuildingDto.entrance_number;
-      entrance++
-    ) {
+    for (let entrance = 1; entrance <= createBuildingDto.entrance_number; entrance++) {
       for (let floor = 1; floor <= createBuildingDto.floor_number; floor++) {
         for (
           let apartment = 1;
@@ -48,7 +43,7 @@ export class BuildingsService {
           apartment.entrance = entrance;
           apartment.floor = floor;
           apartment.room_number = kv++;
-          apartment.room_space = 58.5;
+          apartment.room_space = 58;
 
           records.push(apartment);
         }
@@ -57,22 +52,21 @@ export class BuildingsService {
     const result = await this.buildingRepository.manager
       .getRepository(Apartments)
       .save(records);
-    //   let apartment_prices = []
-    //   result.forEach((record) => {
-    //   const price = new Price()
-    //   price.apartment_id = record.id
-    //   price.is_active_price = true
-    //   price.apartment_price = createBuildingDto.price
-    //   apartment_prices.push(price);
 
-    // })
-    // await this.buildingRepository.manager.getRepository(Price).save(apartment_prices)
-
-    console.timeEnd();
+      console.log(records);
     return result;
   }
   async findAllBuildings() {
     const result = await this.buildingRepository.find();
     return result;
+  }
+  
+  async deleteBuilding(id: number ) {
+    const result = await this.buildingRepository.delete(id);
+
+    if(result.affected != 0){
+      return {status: 200, data: [], message:"Bino o'chirildi"}
+    }
+    return {status: 404, data: [], message: "Bino topilmadi" };
   }
 }
