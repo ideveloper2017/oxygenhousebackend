@@ -28,20 +28,22 @@ export class ApartmentsService {
   }
 
   async updateApartment(id: number, updateApartmentDto: UpdateApartmentDto) {
-
-    const editedApartment = await this.apartmentRepository.update({id: id}, updateApartmentDto)
-    if(editedApartment.affected == 0 ){
-      return {status: 404, data:[] , message: "Kvartira topilmadi"}
+    const editedApartment = await this.apartmentRepository.update(
+      { id: id },
+      updateApartmentDto,
+    );
+    if (editedApartment.affected == 0) {
+      return { status: 404, data: [], message: 'Kvartira topilmadi' };
     }
-    return {status: 200, data: [], message: "Kvartira tahrirlandi"}
+    return { status: 200, data: [], message: 'Kvartira tahrirlandi' };
   }
 
   async deleteApartment(id: number) {
-    const deletedApartment = await this.apartmentRepository.delete(id)
+    const deletedApartment = await this.apartmentRepository.delete(id);
 
-    if(deletedApartment.affected != 0){
-      return {status: 200, data: [], message:"Kvartira o'chirildi"}
+    if (deletedApartment.affected != 0) {
+      return { status: 200, data: [], message: "Kvartira o'chirildi" };
     }
-    return {status: 404, data: [], message: "Kvartira topilmadi" };
+    return { status: 404, data: [], message: 'Kvartira topilmadi' };
   }
 }
