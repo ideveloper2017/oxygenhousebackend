@@ -48,7 +48,7 @@ import { AuthController } from './controller/auth/auth.controller';
 import { AuthService } from './service/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { PremissionsService } from './service/premissions.service';
-import {PremissionsModule} from "./modules/premissions/premissions.module";
+import { PremissionsModule } from './modules/premissions/premissions.module';
 
 @Module({
   imports: [
@@ -94,7 +94,6 @@ import {PremissionsModule} from "./modules/premissions/premissions.module";
     CurrenciesController,
     RegionsController,
     AuthController,
-
   ],
   providers: [
     UsersService,
@@ -114,7 +113,7 @@ import {PremissionsModule} from "./modules/premissions/premissions.module";
     DistrictsService,
     AuthService,
     JwtService,
-    PremissionsService
+    PremissionsService,
   ],
 })
 export class AppModule {
