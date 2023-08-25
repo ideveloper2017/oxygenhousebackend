@@ -46,4 +46,14 @@ export class ApartmentsService {
     }
     return { status: 404, data: [], message: 'Kvartira topilmadi' };
   }
+
+  async getApartments(building_id: number) {
+    const building = await this.apartmentRepository.manager
+      .getRepository(Buildings)
+      .findOne({ where: { id: building_id } });
+
+    return await this.apartmentRepository.find({
+      where: { building_id: building },
+    });
+  }
 }
