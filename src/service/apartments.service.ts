@@ -46,4 +46,6 @@ export class ApartmentsService {
     }
     return { status: 404, data: [], message: 'Kvartira topilmadi' };
   }
+
+  
 }

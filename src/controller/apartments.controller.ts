@@ -38,4 +38,5 @@ export class ApartmentsController {
     
     return this.apartmentsService.deleteApartment(id)
   }
+
 }
