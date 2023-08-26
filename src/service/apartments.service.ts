@@ -47,7 +47,7 @@ export class ApartmentsService {
     return { status: 404, data: [], message: 'Kvartira topilmadi' };
   }
 
-  async getApartments(building_id: number) {
+  public async getApartments(building_id: number) {
     let building;
 
     // eslint-disable-next-line prefer-const
