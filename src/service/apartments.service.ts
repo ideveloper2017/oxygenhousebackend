@@ -55,7 +55,7 @@ export class ApartmentsService {
       .getRepository(Buildings)
       .findOne({ where: { id: building_id } })
       .then((data) => {
-        return data;
+        return data.id;
       });
 
     return await this.apartmentRepository.find({
