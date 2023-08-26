@@ -47,10 +47,13 @@ export class ApartmentsService {
     return { status: 404, message: 'Kvartira topilmadi' };
   }
 
-  async getApartments(id: number) {
-    let building = await this.apartmentRepository.manager
+  async getApartments(building_id: number) {
+    let building;
+
+    // eslint-disable-next-line prefer-const
+    building = await this.apartmentRepository.manager
       .getRepository(Buildings)
-      .findOne({ where: { id: id } });
+      .findBy({ id: building_id });
 
       console.log(building);
       await this.apartmentRepository.find({

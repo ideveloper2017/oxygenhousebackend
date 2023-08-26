@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Res,
@@ -47,9 +48,26 @@ export class ApartmentsController {
   deleteApartment(@Param('id') id: number) {
     return this.apartmentsService.deleteApartment(id);
   }
-  @Get('/apartment/:id')
-  public getApartments(@Param('id') id: number) {
-      return this.apartmentsService.getApartments(id);
+  @Get('/apartment/:building_id')
+  public getApartments(
+    @Res() res,
+    @Param('building_id', ParseIntPipe) building_id: number,
+  ) {
+    return this.apartmentsService.getApartments(building_id).then((data) => {
+      data.map((data) => {
+        if (!data) {
+          res
+            .status(200)
+            .send({ succes: true, data: data, message: 'Found records!!!' });
+        } else {
+          res.status(400).send({
+            succes: false,
+            data: null,
+            message: 'Not found records!!!',
+          });
+        }
+      });
+    });
   }
 
 }
