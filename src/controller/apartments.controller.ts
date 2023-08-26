@@ -62,7 +62,7 @@ export class ApartmentsController {
               .status(200)
               .send({ succes: true, data: data, message: 'Found records!!!' });
           } else {
-            res.status(400).send({
+            res.status(401).send({
               succes: false,
               data: null,
               message: 'Not found records!!!',
@@ -71,7 +71,7 @@ export class ApartmentsController {
         });
       })
       .catch((error) => {
-        res.status(400).send({
+        res.status(401).send({
           succes: false,
           message: error.message,
         });
