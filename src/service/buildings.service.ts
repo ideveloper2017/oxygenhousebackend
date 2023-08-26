@@ -14,17 +14,19 @@ export class BuildingsService {
   ) {}
 
   async createBuilding(createBuildingDto: CreateBuildingDto) {
-    const town = [new Towns()];
-    town[0].id = createBuildingDto.town_id;
-    let building = [new Buildings()];
-    building[0].name = createBuildingDto.name;
-    building[0].town_id = town;
-    building[0].entrance_number = createBuildingDto.entrance_number;
-    building[0].floor_number = createBuildingDto.floor_number;
-    building[0].apartment_number = createBuildingDto.apartment_number;
-    building[0].mk_price = createBuildingDto.mk_price;
+    const town = new Towns();
+    town.id = createBuildingDto.town_id;
+
+    let building = new Buildings();
+    building.name = createBuildingDto.name;
+    building.town_id = town;
+    building.entrance_number = createBuildingDto.entrance_number;
+    building.floor_number = createBuildingDto.floor_number;
+    building.apartment_number = createBuildingDto.apartment_number;
+    building.mk_price = createBuildingDto.mk_price;
 
     building = await this.buildingRepository.save(building);
+    console.log(building);
 
     let kv = 1;
     const records = [];

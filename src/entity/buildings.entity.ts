@@ -7,7 +7,7 @@ import { Towns } from './town.entity';
 export class Buildings extends Model {
   @ManyToOne((type) => Towns, (town) => town.buildings)
   @JoinColumn({ name: 'town_id', referencedColumnName: 'id' })
-  town_id: Towns[];
+  town_id: Towns;
 
   @Column({ unique: true })
   name: string;
