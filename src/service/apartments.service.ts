@@ -48,9 +48,12 @@ export class ApartmentsService {
   }
 
   async getApartments(building_id: number) {
-    const building = await this.apartmentRepository.manager
+    let building;
+
+    // eslint-disable-next-line prefer-const
+    building = await this.apartmentRepository.manager
       .getRepository(Buildings)
-      .findOne({ where: { id: building_id } });
+      .findBy({ id: building_id });
 
     return await this.apartmentRepository.find({
       where: { building_id: building },

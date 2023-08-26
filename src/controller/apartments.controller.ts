@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Res,
@@ -47,8 +48,10 @@ export class ApartmentsController {
   deleteApartment(@Param('id') id: number) {
     return this.apartmentsService.deleteApartment(id);
   }
-  @Get('/apartment/:id')
-  public getApartments(@Res() res, @Param('building_id') building_id: number) {
-      return this.apartmentsService.getApartments(building_id);
+  @Get('/apartment/:building_id')
+  public getApartments(
+    @Param('building_id', ParseIntPipe) building_id: number,
+  ) {
+    return this.apartmentsService.getApartments(building_id);
   }
 }
