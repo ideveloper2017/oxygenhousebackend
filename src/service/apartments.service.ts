@@ -14,7 +14,7 @@ export class ApartmentsService {
   ) {}
 
   async addOneApartment(id: number, createApartmentDto: CreateApartmentDto) {
-    const building = [new Buildings()];
+    const building = new Buildings();
     building[0].id = id;
     const newApartment = new Apartments();
     newApartment.building_id = building;
@@ -53,7 +53,7 @@ export class ApartmentsService {
     // eslint-disable-next-line prefer-const
     building = await this.apartmentRepository.manager
       .getRepository(Buildings)
-      .find({ where: { id: building_id } });
+      .findOne({ where: { id: building_id } });
 
     return await this.apartmentRepository.find({
       where: { building_id: building },
