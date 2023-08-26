@@ -57,7 +57,7 @@ export class ApartmentsService {
       .then((data) => {
         return data;
       });
-
-    return await this.apartmentRepository.find({});
+    return building;
+    // return await this.apartmentRepository.find({});
   }
 }
