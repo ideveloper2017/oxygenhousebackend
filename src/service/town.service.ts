@@ -54,16 +54,22 @@ export class TownService {
   }
 
   async getTownInfo() {
+    const info = await this.townRepository
+      .createQueryBuilder('towns')
+      .leftJoinAndSelect('towns.buildings', 'buildings')
+      .leftJoinAndSelect('buildings.apartments', 'apartments')
+      .loadRelationCountAndMap('towns.buildingCount', 'towns.buildings')
+      .loadRelationCountAndMap(
+        'buildings.apartmentCount',
+        'buildings.apartments',
+      )
+      .select(['towns.name', 'towns.createdAt', 'buildings.name'])
+      .getMany();
 
-    const info = await this.townRepository.createQueryBuilder('towns',)
-    .leftJoinAndSelect('towns.buildings', 'buildings')
-    .leftJoinAndSelect('buildings.apartments', 'apartments')
-    .loadRelationCountAndMap('towns.buildingCount', 'towns.buildings')
-    .loadRelationCountAndMap('buildings.apartmentCount', 'buildings.apartments')
-    .select(['towns.name','towns.createdAt','buildings.name'])
-    .getMany()
-    
-    return {success: true, data: info, message :"Towns informations fetched successfully"}
-  }  
-
+    return {
+      success: true,
+      data: info,
+      message: 'Towns informations fetched successfully',
+    };
+  }
 }

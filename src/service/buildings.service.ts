@@ -60,7 +60,9 @@ export class BuildingsService {
     return result;
   }
   async findAllBuildings() {
-    const result = await this.buildingRepository.find({relations: ['apartments']});
+    const result = await this.buildingRepository.find({
+      relations: ['apartments'],
+    });
     return result;
   }
 
