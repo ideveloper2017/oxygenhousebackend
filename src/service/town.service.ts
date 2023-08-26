@@ -58,7 +58,9 @@ export class TownService {
     const info = await this.townRepository.createQueryBuilder('towns',)
     .leftJoinAndSelect('towns.buildings', 'buildings')
     .leftJoinAndSelect('buildings.apartments', 'apartments')
-    .select(['towns.name','buildings.name', 'apartments.id', 'apartments.room_number'])
+    .loadRelationCountAndMap('towns.buildingCount', 'towns.buildings')
+    .loadRelationCountAndMap('buildings.apartmentCount', 'buildings.apartments')
+    .select(['towns.name','towns.createdAt','buildings.name'])
     .getMany()
     
     return {success: true, data: info, message :"Towns informations fetched successfully"}

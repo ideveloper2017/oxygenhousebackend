@@ -48,8 +48,8 @@ export class ApartmentsController {
     return this.apartmentsService.deleteApartment(id);
   }
   @Get('/apartment/:id')
-  public getApartments(@Res() res, @Param('building_id') building_id: number) {
-      return this.apartmentsService.getApartments(building_id);
+  public getApartments(@Param('id') id: number) {
+      return this.apartmentsService.getApartments(id);
   }
 
 }

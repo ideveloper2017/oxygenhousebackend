@@ -10,6 +10,6 @@ export const swaggerConfig = new DocumentBuilder()
   .addTag('Auth')
   .addTag('Users')
   .addTag('Clients')
-  .addTag('regions')
-  .addTag('Currency')
+  .addTag('Regions')
+  .addTag('Currencies')
   .build();
