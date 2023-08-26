@@ -52,14 +52,20 @@ export class BuildingsController {
       .getBuilding(id)
       .then((data) => {
         if (data.length > 0) {
-          return res
-            .status(200)
-            .send({ success: true, data: data, message: 'found record!!!' });
-        } else {
-          res.status(200).send({
-            success: false,
-            data: null,
-            message: 'not found record!!!',
+          data.map((data) => {
+            if (data.floor === data.building_id.floor_number) {
+              return res.status(200).send({
+                success: true,
+                data: data,
+                message: 'found record!!!',
+              });
+            } else {
+              res.status(200).send({
+                success: false,
+                data: null,
+                message: 'not found record!!!',
+              });
+            }
           });
         }
       })

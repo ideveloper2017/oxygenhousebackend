@@ -4,7 +4,7 @@ import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto'
 import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
 import { Apartments } from 'src/entity/apartments.entity';
 import { Buildings } from 'src/entity/buildings.entity';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 
 @Injectable()
 export class ApartmentsService {
@@ -48,15 +48,12 @@ export class ApartmentsService {
   }
 
   public async getApartments(building_id: number) {
-    let building;
-
-    // eslint-disable-next-line prefer-const
-    building = await this.apartmentRepository.manager
+    const building = await this.apartmentRepository.manager
       .getRepository(Buildings)
       .findOne({ where: { id: building_id } });
 
     return await this.apartmentRepository.find({
-      where: { building_id: building },
+      where: { building_id: building as FindOptionsWhere<Buildings> },
     });
   }
 }
