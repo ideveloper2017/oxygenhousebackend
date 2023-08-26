@@ -58,10 +58,8 @@ export class ApartmentsService {
         return data.id;
       });
 
-      console.log(building);
-      await this.apartmentRepository.find({
-        // where: {building_id:building.id},
-      });
-      return 
+    return await this.apartmentRepository.find({
+      where: { building_id: building.id },
+    });
   }
 }
