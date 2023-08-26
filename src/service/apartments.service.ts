@@ -14,17 +14,17 @@ export class ApartmentsService {
   ) {}
 
   async addOneApartment(id: number, createApartmentDto: CreateApartmentDto) {
-    const building = new Buildings();
-    building.id = id;
-    let newApartment = new Apartments();
+    const building = [new Buildings()];
+    building[0].id = id;
+    const newApartment = new Apartments();
     newApartment.building_id = building;
     newApartment.entrance = createApartmentDto.entrance;
     newApartment.floor = createApartmentDto.floor;
     newApartment.room_number = createApartmentDto.room_number;
     newApartment.cells = createApartmentDto.cells;
     newApartment.room_space = createApartmentDto.room_space;
-    newApartment = await this.apartmentRepository.save(newApartment);
-    return { status: 201, message: "Kvartira ro'yxatga  qo'shildi!" };
+
+    return await this.apartmentRepository.save(newApartment);
   }
 
   async updateApartment(id: number, updateApartmentDto: UpdateApartmentDto) {
@@ -53,11 +53,10 @@ export class ApartmentsService {
     // eslint-disable-next-line prefer-const
     building = await this.apartmentRepository.manager
       .getRepository(Buildings)
-      .findOne({ where: { id: building_id } })
-      .then((data) => {
-        return data;
-      });
-    return building;
-    // return await this.apartmentRepository.find({});
+      .find({ where: { id: building_id } });
+
+    return await this.apartmentRepository.find({
+      where: { building_id: building },
+    });
   }
 }
