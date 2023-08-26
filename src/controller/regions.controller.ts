@@ -15,7 +15,7 @@ import {DistrictsService} from '../service/districts.service';
 import {RegionDto} from '../dtos/region.dto';
 
 // @UseInterceptors(LoggingInterceptor)
-@ApiTags('regions')
+@ApiTags('Regions')
 @Controller('regions')
 export class RegionsController {
     constructor(

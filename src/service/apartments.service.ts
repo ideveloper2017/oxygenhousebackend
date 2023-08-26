@@ -24,7 +24,7 @@ export class ApartmentsService {
     newApartment.cells = createApartmentDto.cells;
     newApartment.room_space = createApartmentDto.room_space;
     newApartment = await this.apartmentRepository.save(newApartment);
-    return { status: 201, data: [], message: "Kvartira ro'yxatga  qo'shildi!" };
+    return { status: 201, message: "Kvartira ro'yxatga  qo'shildi!" };
   }
 
   async updateApartment(id: number, updateApartmentDto: UpdateApartmentDto) {
@@ -33,18 +33,18 @@ export class ApartmentsService {
       updateApartmentDto,
     );
     if (editedApartment.affected == 0) {
-      return { status: 404, data: [], message: 'Kvartira topilmadi' };
+      return { status: 404, message: 'Kvartira topilmadi' };
     }
-    return { status: 200, data: [], message: 'Kvartira tahrirlandi' };
+    return { status: 200, message: 'Kvartira tahrirlandi' };
   }
 
   async deleteApartment(id: number) {
     const deletedApartment = await this.apartmentRepository.delete(id);
 
     if (deletedApartment.affected != 0) {
-      return { status: 200, data: [], message: "Kvartira o'chirildi" };
+      return { status: 200, message: "Kvartira o'chirildi" };
     }
-    return { status: 404, data: [], message: 'Kvartira topilmadi' };
+    return { status: 404, message: 'Kvartira topilmadi' };
   }
 
   public async getApartments(building_id: number) {
@@ -58,8 +58,10 @@ export class ApartmentsService {
         return data.id;
       });
 
-    return await this.apartmentRepository.find({
-      where: { building_id: building },
-    });
+      console.log(building);
+      await this.apartmentRepository.find({
+        // where: {building_id:building.id},
+      });
+      return 
   }
 }

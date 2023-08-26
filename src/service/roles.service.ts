@@ -12,7 +12,7 @@ export class RolesService {
   ) {}
 
   public async getRoleList() {
-    return await this.roleRepo.find({ relations: ['permission'] });
+    return await this.roleRepo.find({ relations: ['permissions'] });
   }
 
   public filldata = async () => {

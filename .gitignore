@@ -3,6 +3,8 @@
 /node_modules
 .development.env
 .env
+
+
 # Logs
 logs
 *.log
