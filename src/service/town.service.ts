@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { count } from 'console';
 import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
 import { UpdateTownDto } from 'src/dtos/town-dto/update-town.dto';
+import { Apartments } from 'src/entity/apartments.entity';
+import { Buildings } from 'src/entity/buildings.entity';
 import { Towns } from 'src/entity/town.entity';
 import { Repository } from 'typeorm';
 
@@ -24,7 +27,7 @@ export class TownService {
         message: 'Town created successfully',
       };
     } else {
-      return { status: 400, data: [], message: 'Bu nomdagi turar-joy mavjud' };
+      return { status: 400, message: 'Bu nomdagi turar-joy mavjud' };
     }
   }
 
@@ -36,17 +39,31 @@ export class TownService {
   async updateTown(id: number, updateTownDto: UpdateTownDto) {
     const updatedTown = await this.townRepository.update(id, updateTownDto);
     if (updatedTown.affected == 0) {
-      return { status: 404, data: [], message: 'Turar-joy topilmadi!' };
+      return { status: 404, message: 'Turar-joy topilmadi!' };
     }
-    return { status: 200, data: [], message: 'Turar-joy tahrirlandi!' };
+    return { status: 200, message: 'Turar-joy tahrirlandi!' };
   }
 
   async deleteTown(id: number) {
     const deletedTown = await this.townRepository.delete(id);
 
     if (deletedTown.affected == 0) {
-      return { status: 404, data: [], message: 'Turar-joy topilmadi! ' };
+      return { status: 404, message: 'Turar-joy topilmadi! ' };
     }
-    return { status: 200, data: [], message: "Turar-joy o'chirildi!" };
+    return { status: 200, message: "Turar-joy o'chirildi!" };
   }
+
+  async getTownInfo() {
+
+    const info = await this.townRepository.createQueryBuilder('towns',)
+    .leftJoinAndSelect('towns.buildings', 'buildings')
+    .leftJoinAndSelect('buildings.apartments', 'apartments')
+    .loadRelationCountAndMap('towns.buildingCount', 'towns.buildings')
+    .loadRelationCountAndMap('buildings.apartmentCount', 'buildings.apartments')
+    .select(['towns.name','towns.createdAt','buildings.name'])
+    .getMany()
+    
+    return {success: true, data: info, message :"Towns informations fetched successfully"}
+  }  
+
 }

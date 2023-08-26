@@ -58,4 +58,9 @@ export class TownController {
   deleteTown(@Param('id') id: number) {
     return this.townService.deleteTown(id);
   }
+
+  @Get('/info')
+  getTownInfo() {
+    return this.townService.getTownInfo()
+  }
 }
