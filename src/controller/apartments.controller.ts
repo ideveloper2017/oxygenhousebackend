@@ -50,7 +50,6 @@ export class ApartmentsController {
   }
   @Get('/apartment/:building_id')
   public getApartments(
-    @Res() res,
     @Param('building_id', ParseIntPipe) building_id: number,
   ) {
     return this.apartmentsService.getApartments(building_id);
