@@ -56,11 +56,10 @@ export class BuildingsService {
       .getRepository(Apartments)
       .save(records);
 
-    console.log(records);
-    return result;
-  }
-  async findAllBuildings() {
-    const result = await this.buildingRepository.find({relations: ['apartments']});
+      return result;
+    }
+    async findAllBuildings() {
+      const result = await this.buildingRepository.find({relations: ['apartments']});
     return result;
   }
 

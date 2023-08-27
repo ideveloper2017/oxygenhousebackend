@@ -24,12 +24,12 @@ export class ApartmentsController {
     status: 201,
     description: "Kvartira muvaffaqiyatli qo'shildi!",
   })
-  @Post('/new/:id')
+  @Post('/new/:building_id')
   createApartment(
-    @Param('id') id: number,
+    @Param('building_id') building_id: number,
     @Body() createApartmentDto: CreateApartmentDto,
   ) {
-    return this.apartmentsService.addOneApartment(id, createApartmentDto);
+    return this.apartmentsService.addOneApartment(building_id, createApartmentDto);
   }
 
   @ApiOperation({ summary: 'Kvartira tahrirlash' })
@@ -48,6 +48,8 @@ export class ApartmentsController {
   deleteApartment(@Param('id') id: number) {
     return this.apartmentsService.deleteApartment(id);
   }
+
+  @ApiOperation({summary: "Bitta binodagi barcha kvartiralar"})
   @Get('/apartment/:building_id')
   public getApartments(
     @Res() res,
@@ -57,6 +59,7 @@ export class ApartmentsController {
       .getApartments(building_id)
       .then((data) => {
         data.map((data) => {
+          console.log(data);
           if (!data) {
             res
               .status(200)

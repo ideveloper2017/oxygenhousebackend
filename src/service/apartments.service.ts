@@ -13,9 +13,9 @@ export class ApartmentsService {
     private readonly apartmentRepository: Repository<Apartments>,
   ) {}
 
-  async addOneApartment(id: number, createApartmentDto: CreateApartmentDto) {
+  async addOneApartment(building_id: number, createApartmentDto: CreateApartmentDto) {
     const building = new Buildings();
-    building.id = id;
+    building.id = building_id;
     let newApartment = new Apartments();
     newApartment.building_id = building;
     newApartment.entrance = createApartmentDto.entrance;
@@ -24,6 +24,7 @@ export class ApartmentsService {
     newApartment.cells = createApartmentDto.cells;
     newApartment.room_space = createApartmentDto.room_space;
     newApartment = await this.apartmentRepository.save(newApartment);
+
     return { status: 201, message: "Kvartira ro'yxatga  qo'shildi!" };
   }
 
@@ -59,9 +60,8 @@ export class ApartmentsService {
       });
 
       console.log(building);
-      await this.apartmentRepository.find({
-        // where: {building_id:building.id},
+      return await this.apartmentRepository.find({
+        where: {building_id:building.id},
       });
-      return 
   }
 }
