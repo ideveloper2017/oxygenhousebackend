@@ -23,5 +23,5 @@ export class Towns extends Model {
   logo: string;
 
   @OneToMany((type) => Buildings, (building) => building.town_id)
-  buildings: Buildings[];
+  buildings: Buildings;
 }

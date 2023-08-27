@@ -30,6 +30,11 @@ export class BuildingsController {
   getAllBuildings() {
     return this.buildingsService.findAllBuildings();
   }
+  
+  // @Get('/test/:town_id')
+  // getTestBuildings(@Param('town_id') town_id: number) {
+  //   return this.buildingsService.getBuldingsOfTown(town_id);
+  // }
 
   @ApiOperation({ summary: 'Bino tahrirlash' })
   @Patch('/edit/:id')

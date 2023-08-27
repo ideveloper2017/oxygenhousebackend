@@ -78,4 +78,10 @@ export class BuildingsService {
     }
     return { status: 404, data: [], message: 'Bino topilmadi' };
   }
+
+  // async getBuldingsOfTown(town_id: number) {
+  //   const result = await this.buildingRepository.query(`SELECT * FROM Buildings WHERE town_id = ${town_id}`);
+  //   console.log(result);
+  // }
+  
 }
