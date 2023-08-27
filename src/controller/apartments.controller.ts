@@ -13,6 +13,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto';
 import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
 import { ApartmentsService } from 'src/service/apartments.service';
+import { Buildings } from '../entity/buildings.entity';
 
 @ApiTags('Apartments')
 @Controller('apartments')
@@ -49,31 +50,48 @@ export class ApartmentsController {
     return this.apartmentsService.deleteApartment(id);
   }
   @Get('/apartment/:building_id')
-  public getApartments(@Res() res,
+  public getApartments(
     @Param('building_id', ParseIntPipe) building_id: number,
   ) {
+    const floor = 1;
+    const dataarray = [];
     return this.apartmentsService
       .getApartments(building_id)
       .then((data) => {
-        data.map((data) => {
-          if (!data) {
-            res
-              .status(200)
-              .send({ succes: true, data: data, message: 'Found records!!!' });
-          } else {
-            res.status(401).send({
-              succes: false,
-              data: null,
-              message: 'Not found records!!!',
-            });
-          }
+        data.map((data, key: number) => {
+          // if (floor != data.floor) {
+          //   floor = data.floor;
+          //   dataarray['floor'] = data;
+          // } else {
+          dataarray[key]['floor'] = data;
+          // }
         });
+        console.log(JSON.stringify({ data: dataarray }));
+        // return res.send({
+        //   succes: true,
+        //   data: data,
+        //   message: 'Found records!!!',
+        // });
+        // .status(200)
+        // .send({ succes: true, data: data, message: 'Found records!!!' }); // data.map((data) => {
+        // if (!data) {
+        //   res
+        //     .status(200)
+        //     .send({ succes: true, data: data, message: 'Found records!!!' });
+        // } else {
+        //   res.status(401).send({
+        //     succes: false,
+        //     data: null,
+        //     message: 'Not found records!!!',
+        //   });
+        // }
+        // });
       })
       .catch((error) => {
-        res.status(401).send({
-          succes: false,
-          message: error.message,
-        });
+        // res.send({
+        //   succes: false,
+        //   message: error.message,
+        // });
       });
   }
 }

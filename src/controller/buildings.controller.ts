@@ -52,12 +52,12 @@ export class BuildingsController {
       .getBuilding(id)
       .then((data) => {
         if (data.length > 0) {
-          data.map((data) => {
-            return res.status(200).send({
-              success: true,
-              data: data,
-              message: 'found record!!!',
-            });
+          // data.map((data) => {
+          return res.status(200).send({
+            success: true,
+            data: data,
+            message: 'found record!!!',
+            // });
           });
         } else {
           res.status(200).send({
