@@ -51,9 +51,8 @@ export class ApartmentsService {
     const building = await this.apartmentRepository.manager
       .getRepository(Buildings)
       .findOne({ where: { id: building_id } });
+    //where: { building_id: building as FindOptionsWhere<Buildings> },
 
-    return await this.apartmentRepository.find({
-      where: { building_id: building as FindOptionsWhere<Buildings> },
-    });
+    return await this.apartmentRepository.find({});
   }
 }

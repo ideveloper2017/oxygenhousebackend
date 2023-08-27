@@ -66,16 +66,9 @@ export class BuildingsService {
   }
 
   public async getBuilding(id: number) {
-    const build_id = await this.buildingRepository.findOne({
+    return await this.buildingRepository.find({
       where: { id: id },
     });
-
-    return await this.buildingRepository.manager
-      .getRepository(Apartments)
-      .find({
-        where: { building_id: build_id.id as FindOptionsWhere<Buildings> },
-        relations: ['building_id'],
-      });
   }
 
   async deleteBuilding(id: number) {
