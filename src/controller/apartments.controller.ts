@@ -49,33 +49,31 @@ export class ApartmentsController {
     return this.apartmentsService.deleteApartment(id);
   }
   @Get('/apartment/:building_id')
-  public getApartments(
+  public getApartments(@Res() res,
     @Param('building_id', ParseIntPipe) building_id: number,
   ) {
-    return this.apartmentsService.getApartments(building_id);
-
-    // return this.apartmentsService
-    //   .getApartments(building_id)
-    //   .then((data) => {
-    //     data.map((data) => {
-    //       if (!data) {
-    //         res
-    //           .status(200)
-    //           .send({ succes: true, data: data, message: 'Found records!!!' });
-    //       } else {
-    //         res.status(401).send({
-    //           succes: false,
-    //           data: null,
-    //           message: 'Not found records!!!',
-    //         });
-    //       }
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     res.status(401).send({
-    //       succes: false,
-    //       message: error.message,
-    //     });
-    //   });
+    return this.apartmentsService
+      .getApartments(building_id)
+      .then((data) => {
+        data.map((data) => {
+          if (!data) {
+            res
+              .status(200)
+              .send({ succes: true, data: data, message: 'Found records!!!' });
+          } else {
+            res.status(401).send({
+              succes: false,
+              data: null,
+              message: 'Not found records!!!',
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        res.status(401).send({
+          succes: false,
+          message: error.message,
+        });
+      });
   }
 }

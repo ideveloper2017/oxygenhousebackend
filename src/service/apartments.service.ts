@@ -53,6 +53,8 @@ export class ApartmentsService {
       .findOne({ where: { id: building_id } });
     //where: { building_id: building as FindOptionsWhere<Buildings> },
 
-    return await this.apartmentRepository.find({});
+    return await this.apartmentRepository.find({
+      where: { building_id: building as FindOptionsWhere<Buildings> },
+    });
   }
 }
