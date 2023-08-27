@@ -21,7 +21,7 @@ export class UsersService {
   public async signIn(username: string) {
     return await this.usersRepository.manager
       .getRepository(Users)
-      .findOne({ where: { username: username } })
+      .findOne({ where: { username: username },relations:['role'] })
       .then((data) => {
         return data;
       });

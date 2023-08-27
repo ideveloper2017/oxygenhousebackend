@@ -53,20 +53,30 @@ export class ApartmentsController {
   public getApartments(
     @Param('building_id', ParseIntPipe) building_id: number,
   ) {
-    const floor = 1;
+    let floor = 0;
+    let enterance = 0;
+    let key1 = 0;
+    let key2 = 0;
     const dataarray = [];
+    const enterancearray = [];
     return this.apartmentsService
       .getApartments(building_id)
       .then((data) => {
-        data.map((data, key: number) => {
-          // if (floor != data.floor) {
-          //   floor = data.floor;
-          //   dataarray['floor'] = data;
-          // } else {
-          dataarray[key]['floor'] = data;
-          // }
+        data.map((data, key) => {
+          if (enterance !== data.entrance) {
+            key1 += 1;
+            enterancearray[key1] = {
+              enterance: data.entrance,
+            };
+            if (floor !== data.floor) {
+              key2 += 1;
+              dataarray[key2] = { enterance: enterancearray, floor: floor };
+            }
+            floor = data.floor;
+            enterance = data.entrance;
+          }
         });
-        console.log(JSON.stringify({ data: dataarray }));
+        console.log(JSON.stringify({ data: enterancearray }));
         // return res.send({
         //   succes: true,
         //   data: data,
@@ -88,6 +98,10 @@ export class ApartmentsController {
         // });
       })
       .catch((error) => {
+        console.log({
+          succes: false,
+          message: error.message,
+        });
         // res.send({
         //   succes: false,
         //   message: error.message,
