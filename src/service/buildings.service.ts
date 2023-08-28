@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 import { CreateBuildingDto } from 'src/dtos/building-dto/create-building.dto';
 import { Buildings } from 'src/entity/buildings.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -47,7 +47,6 @@ export class BuildingsService {
           apartment.floor = floor;
           apartment.room_number = kv++;
           apartment.room_space = 58;
-
           records.push(apartment);
         }
       }
@@ -64,9 +63,8 @@ export class BuildingsService {
   }
 
   public async getBuilding(id: number) {
-    return this.buildingRepository.find({
+    return await this.buildingRepository.find({
       where: { id: id },
-      relations: ['apartments'],
     });
   }
 

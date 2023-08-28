@@ -4,7 +4,7 @@ import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto'
 import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
 import { Apartments } from 'src/entity/apartments.entity';
 import { Buildings } from 'src/entity/buildings.entity';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
 
 @Injectable()
 export class ApartmentsService {
@@ -23,9 +23,8 @@ export class ApartmentsService {
     newApartment.room_number = createApartmentDto.room_number;
     newApartment.cells = createApartmentDto.cells;
     newApartment.room_space = createApartmentDto.room_space;
-    newApartment = await this.apartmentRepository.save(newApartment);
 
-    return { status: 201, message: "Kvartira ro'yxatga  qo'shildi!" };
+    return await this.apartmentRepository.save(newApartment);
   }
 
   async updateApartment(id: number, updateApartmentDto: UpdateApartmentDto) {
@@ -49,19 +48,14 @@ export class ApartmentsService {
   }
 
   public async getApartments(building_id: number) {
-    let building;
-
-    // eslint-disable-next-line prefer-const
-    building = await this.apartmentRepository.manager
+    const building = await this.apartmentRepository.manager
       .getRepository(Buildings)
-      .findOne({ where: { id: building_id } })
-      .then((data) => {
-        return data.id;
-      });
+      .findOne({ where: { id: building_id } });
+    //where: { building_id: building as FindOptionsWhere<Buildings> },
 
-      console.log(building);
-      return await this.apartmentRepository.find({
-        where: {building_id:building.id},
-      });
+    return await this.apartmentRepository.find({
+      where: { building_id: building as FindOptionsWhere<Buildings> },
+      // relations: ['building_id'],
+    });
   }
 }
