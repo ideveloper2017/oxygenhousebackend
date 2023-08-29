@@ -49,63 +49,71 @@ export class ApartmentsController {
   deleteApartment(@Param('id') id: number) {
     return this.apartmentsService.deleteApartment(id);
   }
+
   @Get('/apartment/:building_id')
   public getApartments(
     @Param('building_id', ParseIntPipe) building_id: number,
   ) {
-    let floor = 0;
     let enterance = 0;
-    let key1 = 0;
-    let key2 = 0;
-    const dataarray = [];
-    const enterancearray = [];
+    let floor = 0;
+    let room_number = 0;
+
+    const enterance_array = [];
+    const floor_array = [];
+    const room_array = [];
+    let entrace_res;
+    const floor_res = [];
+    const room_res = [];
+    const response = [];
+
     return this.apartmentsService
       .getApartments(building_id)
       .then((data) => {
-        data.map((data, key) => {
-          if (enterance !== data.entrance) {
-            key1 += 1;
-            enterancearray[key1] = {
-              enterance: data.entrance,
-            };
-            if (floor !== data.floor) {
-              key2 += 1;
-              dataarray[key2] = { enterance: enterancearray, floor: floor };
-            }
-            floor = data.floor;
-            enterance = data.entrance;
+        data.forEach((res, k) => {
+          if (res.entrance !== enterance) {
+            enterance = res.entrance;
+            enterance_array.push(enterance);
           }
+
+          if (res.floor !== floor) {
+            floor = res.floor;
+            floor_array.push(floor);
+          }
+
+          if (res.room_number !== room_number) {
+            room_number = res.room_number;
+            room_array.push(room_number);
+          }
+          // entranceData.push({
+          //   enterance,
+          //   floor: floor,
+          //   room: { room: res.room_number },
+          // });
+          // // response_array.push(dataarray);
+          // response_array.push(entranceData);
         });
-        console.log(JSON.stringify({ data: enterancearray }));
-        // return res.send({
-        //   succes: true,
-        //   data: data,
-        //   message: 'Found records!!!',
-        // });
-        // .status(200)
-        // .send({ succes: true, data: data, message: 'Found records!!!' }); // data.map((data) => {
-        // if (!data) {
-        //   res
-        //     .status(200)
-        //     .send({ succes: true, data: data, message: 'Found records!!!' });
-        // } else {
-        //   res.status(401).send({
-        //     succes: false,
-        //     data: null,
-        //     message: 'Not found records!!!',
-        //   });
-        // }
-        // });
+
+        enterance_array.forEach((entraceData, k) => {
+          entrace_res = entraceData;
+          floor_array.forEach((floorData, i) => {
+            console.log(floorData);
+            // room_res.push(roomData);
+          });
+          // floor_res.push({ floor_num: floorData, apart: room_res });
+          // response.push({
+          //   entrance: entrace_res,
+          //   floor: floor_res,
+          // });
+          // });
+        });
+
+        return JSON.stringify({ data: response });
       })
       .catch((error) => {
         console.log({
           succes: false,
           message: error.message,
         });
-        // res.send({
-        //   succes: false,
-        //   message: error.message,
-        // });
       });
   }
 }

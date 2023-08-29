@@ -125,7 +125,7 @@ export class AppModule {
   ) {
     regionServ.fillDataRegion();
     distServ.fillDataDistrict();
-    permissionserv.filldata();
-    roleServ.filldata();
+    // permissionserv.filldata();
+    // roleServ.filldata();
   }
 }

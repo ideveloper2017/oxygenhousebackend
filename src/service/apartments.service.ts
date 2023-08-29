@@ -50,11 +50,14 @@ export class ApartmentsService {
   public async getApartments(building_id: number) {
     const building = await this.apartmentRepository.manager
       .getRepository(Buildings)
-      .findOne({ where: { id: building_id } });
-    //where: { building_id: building as FindOptionsWhere<Buildings> },
+      .findOne({ where: { id: building_id } })
+      .then((data) => {
+        return data.id;
+      });
 
     return await this.apartmentRepository.find({
       where: { building_id: building as FindOptionsWhere<Buildings> },
+      order: { entrance: 'ASC' },
       // relations: ['building_id'],
     });
   }
