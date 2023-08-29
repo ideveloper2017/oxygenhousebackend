@@ -58,4 +58,15 @@ export class ApartmentsService {
       // relations: ['building_id'],
     });
   }
+
+  async getApartmentsByOrder(building_id : number) {
+
+    const apartments = await this.apartmentRepository.createQueryBuilder('apartments')
+    .select()
+    .where('building_id = :building_id', {building_id})
+    .orderBy('created_at')
+    .getMany()
+
+    return  apartments
+  }
 }
