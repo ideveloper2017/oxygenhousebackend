@@ -57,7 +57,7 @@ export class ApartmentsService {
 
     return await this.apartmentRepository.find({
       where: { building_id: building as FindOptionsWhere<Buildings> },
-      order: { entrance: 'ASC' },
+      order: { room_number: 'ASC' },
       // relations: ['building_id'],
     });
   }

@@ -82,7 +82,7 @@ export class ApartmentsController {
 
           if (res.room_number !== room_number) {
             room_number = res.room_number;
-            room_array.push(room_number);
+            room_array.push({ appart_num: room_number, room: res.room_space });
           }
           // entranceData.push({
           //   enterance,
@@ -92,21 +92,22 @@ export class ApartmentsController {
           // // response_array.push(dataarray);
           // response_array.push(entranceData);
         });
-
+        floor_res.pop();
+        room_res.pop();
+        response.pop();
         enterance_array.forEach((entraceData, k) => {
           entrace_res = entraceData;
           floor_array.forEach((floorData, i) => {
-            console.log(floorData);
-            // room_res.push(roomData);
+            room_array.forEach((roomData, j) => {
+              room_res.push(roomData);
+              floor_res.push({ floor_num: floorData, apart: room_res });
+            });
           });
-          // floor_res.push({ floor_num: floorData, apart: room_res });
-          // response.push({
-          //   entrance: entrace_res,
-          //   floor: floor_res,
-          // });
-          // });
         });
-
+        response.push({
+          entrance: entrace_res,
+          floor: floor_res,
+        });
         return JSON.stringify({ data: response });
       })
       .catch((error) => {
