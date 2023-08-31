@@ -1,6 +1,7 @@
 import {Column, Entity, OneToMany} from 'typeorm';
 import Model from './model.entity';
 import {Sales} from './sales.entity';
+import { Orders } from './orders.entity';
 
 @Entity('Clients')
 export class Clients extends Model {
@@ -51,4 +52,7 @@ export class Clients extends Model {
 
     @OneToMany((type) => Sales, (sales) => sales.client_id)
     sales: Sales[];
+
+    @OneToMany((type) => Orders, (orders) => orders.client_id)
+    orders: Orders[];
 }

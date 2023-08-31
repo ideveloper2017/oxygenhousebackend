@@ -64,7 +64,7 @@ export class ApartmentsService {
     const apartments = await this.apartmentRepository.createQueryBuilder('apartments')
     .select()
     .where('building_id = :building_id', {building_id})
-    .orderBy('created_at')
+    // .orderBy('entrance')
     .getMany()
 
     return  apartments

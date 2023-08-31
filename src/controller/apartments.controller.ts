@@ -14,6 +14,7 @@ import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto'
 import { ApartmentsService } from 'src/service/apartments.service';
 import { Buildings } from '../entity/buildings.entity';
 import { Response } from 'express';
+import { Apartments } from 'src/entity/apartments.entity';
 
 @ApiTags('Apartments')
 @Controller('apartments')
@@ -58,78 +59,24 @@ export class ApartmentsController {
 
     return this.apartmentsService.getApartmentsByOrder(building_id)
     .then((data) => {
-      let e_counter = 1
-      let f_counter = 1
-      let e_array = []
-      let arr = {blok: { floor: []}}
+      
+      let arr = []
 
       for(let i of data){
-        if(arr.blok[i.entrance]){
-          arr.blok[i.entrance].push(i)
+        if(arr[i.entrance]){
+          arr[i.entrance].push(i)
+
+        }else {
+          arr[i.entrance] = [i]
         }
-        else {
-          arr.blok[i.entrance] = [i]
-          
-        }
-      }      
-      console.log(arr);
+      }
+      let test = Object.keys(arr).filter(Number).map(Number) // arraydagi elementlarni number tipiga o'tkazadi numeric bo'lmaganlarini tashlab ketadi.
+      arr =  arr.filter(Boolean) 
+    
+        
        return arr
     }).catch((error) => {
       console.log(error);
     })
-    // let floor = 0;
-    // let enterance = 0;
-    // let key1 = 0;
-    // let key2 = 0;
-    // const dataarray = [];
-    // const enterancearray = [];
-    // return this.apartmentsService
-    //   .getApartments(building_id)
-    //   .then((data) => {
-    //     data.map((data, key) => {
-    //       if (enterance !== data.entrance) {
-    //         key1 += 1;
-    //         enterancearray[key1] = {
-    //           enterance: data.entrance,
-    //         };
-    //         if (floor !== data.floor) {
-    //           key2 += 1;
-    //           dataarray[key2] = { enterance: enterancearray, floor: floor };
-    //         }
-    //         floor = data.floor;
-    //         enterance = data.entrance;
-    //       }
-    //     });
-    //     console.log(JSON.stringify({ data: enterancearray }));
-    //     // return res.send({
-    //     //   succes: true,
-    //     //   data: data,
-    //     //   message: 'Found records!!!',
-    //     // });
-    //     // .status(200)
-    //     // .send({ succes: true, data: data, message: 'Found records!!!' }); // data.map((data) => {
-    //     // if (!data) {
-    //     //   res
-    //     //     .status(200)
-    //     //     .send({ succes: true, data: data, message: 'Found records!!!' });
-    //     // } else {
-    //     //   res.status(401).send({
-    //     //     succes: false,
-    //     //     data: null,
-    //     //     message: 'Not found records!!!',
-    //     //   });
-    //     // }
-    //     // });
-    //   })
-    //   .catch((error) => {
-    //     console.log({
-    //       succes: false,
-    //       message: error.message,
-    //     });
-    //     // res.send({
-    //     //   succes: false,
-    //     //   message: error.message,
-    //     // });
-    //   });
-  }
+     }
 }

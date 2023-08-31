@@ -13,4 +13,5 @@ export const swaggerConfig = new DocumentBuilder()
   .addTag('Regions')
   .addTag('Currencies')
   .addTag('PaymentMethods')
+  .addTag('Orders')
   .build();

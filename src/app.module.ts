@@ -49,6 +49,9 @@ import { AuthService } from './service/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { PremissionsService } from './service/premissions.service';
 import { PremissionsModule } from './modules/premissions/premissions.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { OrdersService } from './service/orders.service';
+import { OrdersController } from './controller/orders.controller';
 
 @Module({
   imports: [
@@ -77,6 +80,7 @@ import { PremissionsModule } from './modules/premissions/premissions.module';
     CurrenciesModule,
     RegionsModule,
     PremissionsModule,
+    OrdersModule,
   ],
   controllers: [
     UsersController,
@@ -94,6 +98,7 @@ import { PremissionsModule } from './modules/premissions/premissions.module';
     CurrenciesController,
     RegionsController,
     AuthController,
+    OrdersController,
   ],
   providers: [
     UsersService,
@@ -114,18 +119,19 @@ import { PremissionsModule } from './modules/premissions/premissions.module';
     AuthService,
     JwtService,
     PremissionsService,
+    OrdersService,
   ],
 })
 export class AppModule {
   constructor(
-    private permissionserv: PremissionsService,
-    private roleServ: RolesService,
     private regionServ: RegionsService,
     private distServ: DistrictsService,
+    private roleServ: RolesService,
+    private permissionserv: PremissionsService,
   ) {
     regionServ.fillDataRegion();
     distServ.fillDataDistrict();
-    permissionserv.filldata();
     roleServ.filldata();
+    permissionserv.filldata();
   }
 }
