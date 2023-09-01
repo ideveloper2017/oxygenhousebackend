@@ -12,14 +12,28 @@ export class OrdersService {
     constructor(@InjectRepository(Orders) private readonly ordersRepository: Repository<Orders>){}
 
     async createOrder(createOrderDto: CreateOrderDto) {
-        // const client = await this.ordersRepository.manager.getRepository(Clients).findOne({where: {id: createOrderDto.client_id}})
-        const order = new Orders()
-        order.client_id = await this.ordersRepository.manager.getRepository(Clients).findOne({where: {id: createOrderDto.client_id}})
-        order.user_id = await this.ordersRepository.manager.getRepository(Users).findOne({where: {id: createOrderDto.user_id}})
-        order.is_accepted = false
+        // const order = new Orders()
+        // order.client_id = await this.ordersRepository.manager.getRepository(Clients).findOne({where: {id: createOrderDto.client_id}})
+        // order.user_id = await this.ordersRepository.manager.getRepository(Users).findOne({where: {id: createOrderDto.user_id}})
+        // order.is_accepted = false
         
-        const newOrder = await this.ordersRepository.save(order)
-        return newOrder
+        // const newOrder = await this.ordersRepository.save(order)
+        // return newOrder
+
+        const user = new Users()
+        user.id = createOrderDto.user_id
+
+        const client = new Clients()
+        client.id = createOrderDto.client_id
+        
+        const order = new Orders()
+        order.user_id = user.id
+        order.client_id = client.id
+        order.is_accepted = createOrderDto.is_accepted
+
+        return  await this.ordersRepository.save(order)
+
+
     }
 
     async getOrderList(id?: number) {
@@ -34,7 +48,8 @@ export class OrdersService {
     }
 
     async updateOrder( id:number, updateOrderDto: UpdateOrderDto) {
-        // const order = await this.ordersRepository.update({id: id}, updateOrderDto)
+        const order = await this.ordersRepository.update({id: id}, updateOrderDto)
+        return order
     }
    
     async deleteOrder(arrayOfId: number[]) {

@@ -32,7 +32,13 @@ export class OrdersController {
     @ApiOperation({summary: "Order ni tahrirlash"})
     @Patch('/edit/:id')
     editOpder( @Param('id') id: number, @Body() editOrderDto : UpdateOrderDto) {
-        return this.orderService.updateOrder(id, editOrderDto)
+        return this.orderService.updateOrder(id, editOrderDto).then(response => {
+            if(response.affected != 0 ) {
+                return {success: true , message:"order updated"}
+            }else {
+                return {success: false , message:"order not found"}
+            }
+        })
     }
 
     @ApiOperation({summary: "Order ni o'chirish"})
@@ -47,9 +53,10 @@ export class OrdersController {
         })
     }
 
-    @Patch('/option')
-    acceptOrRejectOrder(id: number){
+    @Patch('/option/:id')
+    acceptOrRejectOrder(@Param('id') id: number){
         return this.orderService.chooseOrder(id).then (response => {
+            return response
         })
     }
 }

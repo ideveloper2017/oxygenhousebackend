@@ -1,4 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Clients } from "src/entity/clients.entity";
+import { Users } from "src/entity/users.entity";
 
 export class CreateOrderDto {
     @ApiProperty({example: 1, description: "ro'yxatdan o'tgan mijoz idisi" })

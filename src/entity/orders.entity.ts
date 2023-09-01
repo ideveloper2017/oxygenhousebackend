@@ -7,11 +7,17 @@ import { Users } from "./users.entity";
 export class Orders extends Model {
     @ManyToOne(type => Clients, (clients) => clients.orders)
     @JoinColumn({name: 'client_id'})
-    client_id: Clients
+    clients: Clients;
 
+    @Column({type: "integer"})
+    client_id: number
+    
     @ManyToOne(type => Users, (users) => users.orders)
     @JoinColumn({name: 'user_id'})
-    user_id: Users
+    users: Users
+    
+    @Column({type: "integer"})
+    user_id: number
 
     @Column()
     is_accepted: boolean
