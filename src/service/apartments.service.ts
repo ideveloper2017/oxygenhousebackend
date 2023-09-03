@@ -13,10 +13,10 @@ export class ApartmentsService {
     private readonly apartmentRepository: Repository<Apartments>,
   ) {}
 
-  async addOneApartment(id: number, createApartmentDto: CreateApartmentDto) {
+  async addOneApartment(building_id: number, createApartmentDto: CreateApartmentDto) {
     const building = new Buildings();
-    building[0].id = id;
-    const newApartment = new Apartments();
+    building.id = building_id;
+    let newApartment = new Apartments();
     newApartment.building_id = building;
     newApartment.entrance = createApartmentDto.entrance;
     newApartment.floor = createApartmentDto.floor;
@@ -46,19 +46,14 @@ export class ApartmentsService {
     }
     return { status: 404, message: 'Kvartira topilmadi' };
   }
+  
+  async getApartmentsByOrder(building_id : number) {
 
-  public async getApartments(building_id: number) {
-    const building = await this.apartmentRepository.manager
-      .getRepository(Buildings)
-      .findOne({ where: { id: building_id } })
-      .then((data) => {
-        return data.id;
-      });
-
-    return await this.apartmentRepository.find({
-      where: { building_id: building as FindOptionsWhere<Buildings> },
-      order: { room_number: 'ASC' },
-      // relations: ['building_id'],
-    });
+    const apartments = await this.apartmentRepository.createQueryBuilder('apartments')
+    .select()
+    .where('building_id = :building_id', {building_id})
+    .getMany()
+    
+    return  apartments
   }
 }

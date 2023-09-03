@@ -72,4 +72,6 @@ export class TownService {
       message: 'Towns informations fetched successfully',
     };
   }
+
+  
 }

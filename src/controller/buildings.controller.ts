@@ -10,6 +10,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { CreateBuildingDto } from 'src/dtos/building-dto/create-building.dto';
 import { UpdateBuildingDto } from 'src/dtos/building-dto/update-building.dto';
 import { BuildingsService } from 'src/service/buildings.service';
@@ -30,6 +31,30 @@ export class BuildingsController {
   getAllBuildings() {
     return this.buildingsService.findAllBuildings();
   }
+  
+  @Get('/:town_id')
+  getTestBuildings(@Param('town_id') town_id: number, @Res() res: Response) {
+    return this.buildingsService.getBuldingsOfTown(town_id).then((data) => {
+      if (data.length > 0) {
+        return res.status(200).send({
+          success: true,
+          data: data,
+          message: 'found record!!!',
+        });
+      } else {
+        res.status(200).send({
+          success: false,
+          data: null,
+          message: 'not found record!!!',
+        });
+      }
+    })
+    .catch((error) => {
+      res
+        .status(200)
+        .send({ success: false, data: null, message: 'not found record!!!' });
+    });
+  }
 
   @ApiOperation({ summary: 'Bino tahrirlash' })
   @Patch('/edit/:id')
@@ -44,33 +69,5 @@ export class BuildingsController {
   @Delete('/delete/:id')
   deleteBuilding(@Param('id') id: number) {
     return this.buildingsService.deleteBuilding(id);
-  }
-
-  @Get('/building/:id')
-  public getBuildingDetail(@Res() res, @Param('id', ParseIntPipe) id: number) {
-    return this.buildingsService
-      .getBuilding(id)
-      .then((data) => {
-        if (data.length > 0) {
-          // data.map((data) => {
-          return res.status(200).send({
-            success: true,
-            data: data,
-            message: 'found record!!!',
-            // });
-          });
-        } else {
-          res.status(200).send({
-            success: false,
-            data: null,
-            message: 'not found record!!!',
-          });
-        }
-      })
-      .catch((error) => {
-        res
-          .status(200)
-          .send({ success: false, data: null, message: 'not found record!!!' });
-      });
   }
 }

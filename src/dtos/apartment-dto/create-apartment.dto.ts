@@ -1,11 +1,8 @@
-import { Buildings } from 'src/entity/buildings.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsString } from 'class-validator';
 
 export class CreateApartmentDto {
-  @ApiProperty({ example: 2, description: 'bino idisini oladi' })
-  building_id: Buildings;
-
+ 
   @ApiProperty({ example: 1 })
   entrance: number;
 

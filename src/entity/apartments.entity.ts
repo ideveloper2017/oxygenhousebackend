@@ -7,7 +7,7 @@ import { Sale_details } from './sale_details.entity';
 @Entity('Apartments')
 export class Apartments extends Model {
   @ManyToOne((type) => Buildings, (building) => building.apartments)
-  // @JoinColumn({ name: 'building_id' })
+  @JoinColumn({ name: 'building_id' })
   building_id: Buildings;
 
   @Column()
