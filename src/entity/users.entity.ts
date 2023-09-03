@@ -12,7 +12,7 @@ export class Users extends Model {
   @Column()
   last_name: string;
 
-  @Column()
+  @Column({nullable: true})
   phone_number: string;
 
   @Column()

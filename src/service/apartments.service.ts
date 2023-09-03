@@ -17,9 +17,6 @@ export class ApartmentsService {
     const building = new Buildings();
     building.id = building_id;
     let newApartment = new Apartments();
-    newApartment.building_id = building;
-    newApartment.entrance = createApartmentDto.entrance;
-    newApartment.floor = createApartmentDto.floor;
     newApartment.room_number = createApartmentDto.room_number;
     newApartment.cells = createApartmentDto.cells;
     newApartment.room_space = createApartmentDto.room_space;
@@ -27,16 +24,16 @@ export class ApartmentsService {
     return await this.apartmentRepository.save(newApartment);
   }
 
-  async updateApartment(id: number, updateApartmentDto: UpdateApartmentDto) {
-    const editedApartment = await this.apartmentRepository.update(
-      { id: id },
-      updateApartmentDto,
-    );
-    if (editedApartment.affected == 0) {
-      return { status: 404, message: 'Kvartira topilmadi' };
-    }
-    return { status: 200, message: 'Kvartira tahrirlandi' };
-  }
+  // async updateApartment(id: number, updateApartmentDto: UpdateApartmentDto) {
+  //   const editedApartment = await this.apartmentRepository.update(
+  //     { id: id },
+  //     updateApartmentDto,
+  //   );
+  //   if (editedApartment.affected == 0) {
+  //     return { status: 404, message: 'Kvartira topilmadi' };
+  //   }
+  //   return { status: 200, message: 'Kvartira tahrirlandi' };
+  // }
 
   async deleteApartment(id: number) {
     const deletedApartment = await this.apartmentRepository.delete(id);
@@ -49,7 +46,8 @@ export class ApartmentsService {
   
   async getApartmentsByOrder(building_id : number) {
 
-    const apartments = await this.apartmentRepository.createQueryBuilder('apartments')
+    const apartments = await this.apartmentRepository
+    .createQueryBuilder('apartments')
     .select()
     .where('building_id = :building_id', {building_id})
     .getMany()

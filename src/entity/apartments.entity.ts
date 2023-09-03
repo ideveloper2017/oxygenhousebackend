@@ -1,21 +1,18 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import Model from './model.entity';
-import { Buildings } from './buildings.entity';
 import { Price } from './price.entity';
 import { Sale_details } from './sale_details.entity';
+import { Floor } from './floor.entity';
 
 @Entity('Apartments')
 export class Apartments extends Model {
-  @ManyToOne((type) => Buildings, (building) => building.apartments)
-  @JoinColumn({ name: 'building_id' })
-  building_id: Buildings;
+  @ManyToOne((type) => Floor, (floor) =>floor.apartments)
+  @JoinColumn({ name: 'floor_id' })
+  floor: Floor; 
 
   @Column()
-  entrance: number;
-
-  @Column()
-  floor: number;
-
+  floor_id: number;
+  
   @Column({ nullable: true })
   room_number: number;
 

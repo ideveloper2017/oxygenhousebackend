@@ -23,13 +23,26 @@ export class BuildingsController {
   @ApiOperation({ summary: 'Bino yaratish ichidagi kvartiralari bilan' })
   @Post('/add')
   addBuilding(@Body() createBuildingDto: CreateBuildingDto) {
-    return this.buildingsService.createBuilding(createBuildingDto);
+    return this.buildingsService.createBuilding(createBuildingDto).then(response => {
+      if(response.length != 0){
+        return {success: true, data: response, message: 'Building added successfully'}
+      }else {
+      }
+    })
   }
-
+  
   @ApiOperation({ summary: "Mavjud barcha binolar ro'yxatini olish" })
   @Get('/all')
   getAllBuildings() {
-    return this.buildingsService.findAllBuildings();
+    return this.buildingsService.findAllBuildings().then(response => {
+      if(response.length != 0){
+        return {success: true, data: response, message: 'Data fetched successfully'}
+      }else {
+        return {success: false, message: "No data found!"}
+      }
+    }).catch(error => {
+      return {success: false, message:error.message}
+    })
   }
   
   @Get('/:town_id')
