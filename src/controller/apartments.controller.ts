@@ -59,7 +59,23 @@ export class ApartmentsController {
 
     return this.apartmentsService.getApartmentsByOrder(building_id)
     .then((data) => {
-      
+   
+      function removeNullValues(arr) {
+        return arr.reduce((result, item) => {
+          if (Array.isArray(item)) {
+            // Recursively remove null values from nested arrays
+            const cleanedNestedArray = removeNullValues(item);
+            // If the nested array is not empty, add it to the result
+            if (cleanedNestedArray.length > 0) {
+              result.push(cleanedNestedArray);
+            }
+          } else if (item !== null) {
+            // Add non-null items to the result
+            result.push(item);
+          }
+          return result;
+        }, []);
+      }
       let groupedData =[]
       data.forEach((item) => {
         const entrance = item.entrance;
@@ -67,7 +83,7 @@ export class ApartmentsController {
       
         // Check if the entrance key already exists in the groupedData object
         if (!groupedData[entrance]) {
-          groupedData[entrance] = {};
+          groupedData[entrance] = [];
         }
       
         // Check if the floor key already exists within the entrance key
@@ -79,22 +95,9 @@ export class ApartmentsController {
         groupedData[entrance][floor].push(item);
       });
       
-      console.log(groupedData);
-      
-      // let arr = []
-      // for(let i of data){
-      //   if(arr[i.entrance]){
-      //     arr[i.entrance].push(i)
-
-      //   }else {
-      //     arr[i.entrance] = []
-      //   }
-      // }
+      removeNullValues(groupedData)
      
-     
-
-     
-       return groupedData
+       return removeNullValues(groupedData)
     }).catch((error) => {
       console.log(error);
     })

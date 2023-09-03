@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Users } from 'src/entity/users.entity';
@@ -28,6 +28,20 @@ export class UsersService {
   }
 
   public async createLogin(createUserDto: CreateUserDto) {
-    return this.usersRepository.save(createUserDto);
+    try {
+      const newUser = new Users()
+      newUser.first_name = createUserDto.first_name
+      newUser.last_name = createUserDto.last_name
+      newUser.username = createUserDto.username
+      newUser.password = createUserDto.password
+      newUser.is_active = createUserDto.is_active
+      newUser.role_id = createUserDto.role_id
+      
+      const user = this.usersRepository.save(newUser);
+      return user
+      
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

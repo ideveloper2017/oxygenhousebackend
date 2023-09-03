@@ -26,7 +26,7 @@ export class Clients extends Model {
     @Column({unique: true})
     contact_number: string;
 
-    @Column({})
+    @Column({nullable: true})
     date_of_birth: Date;
 
     @Column({nullable: false, unique: true})
@@ -35,10 +35,10 @@ export class Clients extends Model {
     @Column({nullable: false})
     given_from: string;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     given_date: Date;
 
-    @Column({nullable: false})
+    @Column({nullable: true})
     untill_date: Date;
 
     @Column({nullable: true})
