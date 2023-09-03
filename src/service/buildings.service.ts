@@ -55,13 +55,10 @@ export class BuildingsService {
       .getRepository(Apartments)
       .save(records);
 
-    console.log(records);
-    return result;
-  }
-  async findAllBuildings() {
-    const result = await this.buildingRepository.find({
-      relations: ['apartments'],
-    });
+      return result;
+    }
+    async findAllBuildings() {
+      const result = await this.buildingRepository.find({relations: ['apartments']});
     return result;
   }
 
@@ -72,11 +69,21 @@ export class BuildingsService {
   }
 
   async deleteBuilding(id: number) {
-    const result = await this.buildingRepository.delete(id);
 
+    const result = await this.buildingRepository.delete(id);
     if (result.affected != 0) {
       return { status: 200, data: [], message: "Bino o'chirildi" };
     }
     return { status: 404, data: [], message: 'Bino topilmadi' };
   }
+
+  async getBuldingsOfTown(town_id: number) {
+    const result = await this.buildingRepository.createQueryBuilder('buildings').select().where('town_id = :town_id',{town_id})
+    .getMany()
+    
+    console.log(result);
+
+    return result
+  }
+  
 }

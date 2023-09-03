@@ -7,7 +7,7 @@ import { Users } from './users.entity';
 export class Sales extends Model {
   @ManyToOne((type) => Users)
   @JoinColumn({ name: 'user_id' })
-  user: Users[];
+  users: Users;
 
   @ManyToOne((type) => Clients)
   @JoinColumn({ name: 'client_id' })

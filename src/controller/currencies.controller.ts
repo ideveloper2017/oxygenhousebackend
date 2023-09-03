@@ -11,7 +11,7 @@ export class CurrenciesController {
   @ApiOperation({summary: "Pul birligi qo'shish"})
   @Post('/add')
   addCurrency(@Body() createCurrencyDto: CreateCurrencyDto){
-      // return this.currancyService.createCurrency(createCurrencyDto)
+      return this.currancyService.createCurrency(createCurrencyDto)
   }
 
   @ApiOperation({ summary: "Pul birliklari ro'yxatini olish" })
