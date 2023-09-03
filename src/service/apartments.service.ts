@@ -47,26 +47,25 @@ export class ApartmentsService {
     return { status: 404, message: 'Kvartira topilmadi' };
   }
 
-  public async getApartments(building_id: number) {
-    const building = await this.apartmentRepository.manager
-      .getRepository(Buildings)
-      .findOne({ where: { id: building_id } });
-    //where: { building_id: building as FindOptionsWhere<Buildings> },
+  // public async getApartments(building_id: number) {
+  //   const building = await this.apartmentRepository.manager
+  //     .getRepository(Buildings)
+  //     .findOne({ where: { id: building_id } });
+  //   //where: { building_id: building as FindOptionsWhere<Buildings> },
 
-    return await this.apartmentRepository.find({
-      where: { building_id: building as FindOptionsWhere<Buildings> },
-      // relations: ['building_id'],
-    });
-  }
+  //   return await this.apartmentRepository.find({
+  //     where: { building_id: building as FindOptionsWhere<Buildings> },
+  //     // relations: ['building_id'],
+  //   });
+  // }
 
   async getApartmentsByOrder(building_id : number) {
 
     const apartments = await this.apartmentRepository.createQueryBuilder('apartments')
     .select()
     .where('building_id = :building_id', {building_id})
-    // .orderBy('entrance')
     .getMany()
-
+    
     return  apartments
   }
 }

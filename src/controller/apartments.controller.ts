@@ -60,21 +60,41 @@ export class ApartmentsController {
     return this.apartmentsService.getApartmentsByOrder(building_id)
     .then((data) => {
       
-      let arr = []
-
-      for(let i of data){
-        if(arr[i.entrance]){
-          arr[i.entrance].push(i)
-
-        }else {
-          arr[i.entrance] = [i]
+      let groupedData =[]
+      data.forEach((item) => {
+        const entrance = item.entrance;
+        const floor = item.floor;
+      
+        // Check if the entrance key already exists in the groupedData object
+        if (!groupedData[entrance]) {
+          groupedData[entrance] = {};
         }
-      }
-      let test = Object.keys(arr).filter(Number).map(Number) // arraydagi elementlarni number tipiga o'tkazadi numeric bo'lmaganlarini tashlab ketadi.
-      arr =  arr.filter(Boolean) 
-    
-        
-       return arr
+      
+        // Check if the floor key already exists within the entrance key
+        if (!groupedData[entrance][floor]) {
+          groupedData[entrance][floor] = [];
+        }
+      
+        // Add the item to the appropriate group
+        groupedData[entrance][floor].push(item);
+      });
+      
+      console.log(groupedData);
+      
+      // let arr = []
+      // for(let i of data){
+      //   if(arr[i.entrance]){
+      //     arr[i.entrance].push(i)
+
+      //   }else {
+      //     arr[i.entrance] = []
+      //   }
+      // }
+     
+     
+
+     
+       return groupedData
     }).catch((error) => {
       console.log(error);
     })

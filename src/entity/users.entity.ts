@@ -1,7 +1,8 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import Model from './model.entity';
 import { Sales } from './sales.entity';
 import { Orders } from './orders.entity';
+import { Roles } from './roles.entity';
 
 @Entity('Users')
 export class Users extends Model {
@@ -12,6 +13,9 @@ export class Users extends Model {
   last_name: string;
 
   @Column()
+  phone_number: string;
+
+  @Column()
   username: string;
 
   @Column()
@@ -20,12 +24,16 @@ export class Users extends Model {
   @Column()
   is_active: boolean;
 
+  @OneToOne(type => Roles, roles => roles.users)
+  @JoinColumn({name: 'role_id'})
+  roles: Roles
+
   @Column()
-  role_id: number;
+  role_id: number
 
-  @OneToMany((type) => Sales, (sales) => sales)
-  sales: Sales;
+  @OneToMany((type) => Sales, (sales) => sales.users)
+  sales: Sales[];
 
-  @OneToMany((type) => Orders, (orders) => orders.user_id)
+  @OneToMany((type) => Orders, (orders) => orders.users)
   orders: Orders[];
 }

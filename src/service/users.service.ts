@@ -14,14 +14,14 @@ export class UsersService {
   ) {}
 
   async getUsers() {
-    const users = await this.usersRepository.find();
+    const users = await this.usersRepository.find({relations: ['roles', 'roles.permission']});
     return { status: 200, data: users, message: 'Success' };
   }
 
   public async signIn(username: string) {
     return await this.usersRepository.manager
       .getRepository(Users)
-      .findOne({ where: { username: username },relations:['role'] })
+      .findOne({ where: { username: username },relations:['roles'] })
       .then((data) => {
         return data;
       });
