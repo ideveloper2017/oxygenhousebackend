@@ -19,24 +19,24 @@ export class CreateUserDto {
   // @IsNotEmpty()
   // user_is_verified: string;
 
-  @ApiProperty()
+  @ApiProperty({example: "Mansurxon"})
   first_name: string;
 
-  @ApiProperty()
+  @ApiProperty({example: "Samadov"})
   last_name: string;
 
-  @ApiProperty()
-  phone_number: string;
-
-  @ApiProperty()
+  @ApiProperty({example: "mansoor07"})
   username: string;
 
-  @ApiProperty()
+  @ApiProperty({example: "+998 94 995 1254"})
+  phone_number: string;
+
+  @ApiProperty({example: "1234"})
   password: string;
 
-  @ApiProperty()
+  @ApiProperty({example:false})
   is_active: boolean;
 
-  @ApiProperty()
+  @ApiProperty({example: 3})
   role_id: number;
 }

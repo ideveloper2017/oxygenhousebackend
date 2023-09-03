@@ -5,6 +5,8 @@ import { Buildings } from 'src/entity/buildings.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Towns } from 'src/entity/town.entity';
 import { Apartments } from 'src/entity/apartments.entity';
+import { Floor } from 'src/entity/floor.entity';
+import { Entrance } from 'src/entity/entrance.entity';
 
 @Injectable()
 export class BuildingsService {
@@ -30,35 +32,38 @@ export class BuildingsService {
 
     let kv = 1;
     const records = [];
-    for (
-      let entrance = 1;
-      entrance <= createBuildingDto.entrance_number;
-      entrance++
-    ) {
-      for (let floor = 1; floor <= createBuildingDto.floor_number; floor++) {
-        for (
-          let apartment = 1;
-          apartment <= createBuildingDto.apartment_number;
-          apartment++
-        ) {
+    for (let blok = 1; blok <= building.entrance_number; blok++) {
+      
+      const entrance = new Entrance()
+      entrance.buildings = building
+      entrance.entrance_number = blok
+      await this.buildingRepository.manager.getRepository(Entrance).save(entrance)
+
+      for (let layer = 1; layer <= building.floor_number; layer++) { 
+        
+        const floor = new Floor()
+        floor.floor_number = layer
+        floor.entrance = entrance
+        await this.buildingRepository.manager.getRepository(Floor).save(floor) 
+
+        for (let apartment = 1; apartment <= building.apartment_number; apartment++) {
           const apartment = new Apartments();
-          apartment.building_id = building;
-          apartment.entrance = entrance;
-          apartment.floor = floor;
+          apartment.floor = floor
           apartment.room_number = kv++;
+          apartment.cells = 1
+          apartment.status = 'free'
           apartment.room_space = 58;
           records.push(apartment);
         }
       }
     }
-    const result = await this.buildingRepository.manager
-      .getRepository(Apartments)
+    const result = await this.buildingRepository.manager.getRepository(Apartments)
       .save(records);
 
       return result;
     }
     async findAllBuildings() {
-      const result = await this.buildingRepository.find({relations: ['apartments']});
+      const result = await this.buildingRepository.find({relations: ['entrances' , 'entrances.floors','entrances.floors.apartments' ]});
     return result;
   }
 

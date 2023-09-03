@@ -41,7 +41,7 @@ export class ApartmentsController {
     @Param('id') id: number,
     @Body() updateApartmentDto: UpdateApartmentDto,
   ) {
-    return this.apartmentsService.updateApartment(id, updateApartmentDto);
+    // return this.apartmentsService.updateApartment(id, updateApartmentDto);
   }
 
   @ApiOperation({ summary: "Kvartirani ro'yxatdan o'chirish" })
@@ -60,44 +60,46 @@ export class ApartmentsController {
     return this.apartmentsService.getApartmentsByOrder(building_id)
     .then((data) => {
    
-      function removeNullValues(arr) {
-        return arr.reduce((result, item) => {
-          if (Array.isArray(item)) {
-            // Recursively remove null values from nested arrays
-            const cleanedNestedArray = removeNullValues(item);
-            // If the nested array is not empty, add it to the result
-            if (cleanedNestedArray.length > 0) {
-              result.push(cleanedNestedArray);
-            }
-          } else if (item !== null) {
-            // Add non-null items to the result
-            result.push(item);
-          }
-          return result;
-        }, []);
-      }
-      let groupedData =[]
-      data.forEach((item) => {
-        const entrance = item.entrance;
-        const floor = item.floor;
+      // function removeNullValues(arr) {
+      //   return arr.reduce((result, item) => {
+      //     if (Array.isArray(item)) {
+      //       // Recursively remove null values from nested arrays
+      //       const cleanedNestedArray = removeNullValues(item);
+      //       // If the nested array is not empty, add it to the result
+      //       if (cleanedNestedArray.length > 0) {
+      //         result.push(cleanedNestedArray);
+      //       }
+      //     } else if (item !== null) {
+      //       // Add non-null items to the result
+      //       result.push(item);
+      //     }
+      //     return result;
+      //   }, []);
+      // }
+
+      // ===========================******************************===============================
+      // let groupedData =[]
+      // data.forEach((item) => {
+      //   const entrance = item.entrance;
+      //   const floor = item.floor;
       
-        // Check if the entrance key already exists in the groupedData object
-        if (!groupedData[entrance]) {
-          groupedData[entrance] = [];
-        }
+      //   // Check if the entrance key already exists in the groupedData object
+      //   if (!groupedData[entrance]) {
+      //     groupedData[entrance] = [];
+      //   }
       
-        // Check if the floor key already exists within the entrance key
-        if (!groupedData[entrance][floor]) {
-          groupedData[entrance][floor] = [];
-        }
+      //   // Check if the floor key already exists within the entrance key
+      //   if (!groupedData[entrance][floor]) {
+      //     groupedData[entrance][floor] = [];
+      //   }
       
-        // Add the item to the appropriate group
-        groupedData[entrance][floor].push(item);
-      });
+      //   // Add the item to the appropriate group
+      //   groupedData[entrance][floor].push(item);
+      // });
       
-      removeNullValues(groupedData)
+      // removeNullValues(groupedData)
      
-       return removeNullValues(groupedData)
+       return data
     }).catch((error) => {
       console.log(error);
     })

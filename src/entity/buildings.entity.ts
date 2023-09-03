@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import Model from './model.entity';
-import { Apartments } from './apartments.entity';
 import { Towns } from './town.entity';
+import { Entrance } from './entrance.entity';
 
 @Entity('Buildings')
 export class Buildings extends Model {
@@ -18,8 +18,8 @@ export class Buildings extends Model {
   @Column()
   floor_number: number;
 
-  @OneToMany((type) => Apartments, (apartment) => apartment.building_id)
-  apartments: Apartments[];
+  @OneToMany((type) => Entrance, (entrance) => entrance.buildings)
+  entrances: Entrance;
 
   @Column()
   apartment_number: number;
