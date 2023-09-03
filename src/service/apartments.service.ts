@@ -46,11 +46,12 @@ export class ApartmentsService {
   
   async getApartmentsByOrder(building_id : number) {
 
-    const apartments = await this.apartmentRepository
-    .createQueryBuilder('apartments')
-    .select()
-    .where('building_id = :building_id', {building_id})
-    .getMany()
+    const apartments = await this.apartmentRepository.manager.getRepository(Buildings)
+    .findOne({where: {id: building_id}, relations:['entrances' , 'entrances.floors','entrances.floors.apartments']})
+    // .createQueryBuilder('apartments')
+    // .select()
+    // .where('building_id = :building_id', {building_id})
+    // .getMany()
     
     return  apartments
   }
