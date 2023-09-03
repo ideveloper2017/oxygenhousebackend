@@ -12,7 +12,7 @@ export class Users extends Model {
   @Column()
   last_name: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone_number: string;
 
   @Column()
@@ -24,12 +24,12 @@ export class Users extends Model {
   @Column()
   is_active: boolean;
 
-  @OneToOne(type => Roles, roles => roles.users)
-  @JoinColumn({name: 'role_id'})
-  roles: Roles
+  @OneToOne((type) => Roles, (roles) => roles.users)
+  @JoinColumn({ name: 'role_id' })
+  roles: Roles;
 
   @Column()
-  role_id: number
+  role_id: number;
 
   @OneToMany((type) => Sales, (sales) => sales.users)
   sales: Sales[];
