@@ -12,9 +12,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto';
 import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
 import { ApartmentsService } from 'src/service/apartments.service';
-import { Buildings } from '../entity/buildings.entity';
 import { Response } from 'express';
-import { Apartments } from 'src/entity/apartments.entity';
 
 @ApiTags('Apartments')
 @Controller('apartments')
@@ -41,7 +39,7 @@ export class ApartmentsController {
     @Param('id') id: number,
     @Body() updateApartmentDto: UpdateApartmentDto,
   ) {
-    // return this.apartmentsService.updateApartment(id, updateApartmentDto);
+    return this.apartmentsService.updateApartment(id, updateApartmentDto);
   }
 
   @ApiOperation({ summary: "Kvartirani ro'yxatdan o'chirish" })
@@ -57,49 +55,13 @@ export class ApartmentsController {
     @Param('building_id', ParseIntPipe) building_id: number,res: Response
   ) {
 
-    return this.apartmentsService.getApartmentsByOrder(building_id)
+    return this.apartmentsService.getApartmentsOfBuilding(building_id)
     .then((data) => {
-   
-      // function removeNullValues(arr) {
-      //   return arr.reduce((result, item) => {
-      //     if (Array.isArray(item)) {
-      //       // Recursively remove null values from nested arrays
-      //       const cleanedNestedArray = removeNullValues(item);
-      //       // If the nested array is not empty, add it to the result
-      //       if (cleanedNestedArray.length > 0) {
-      //         result.push(cleanedNestedArray);
-      //       }
-      //     } else if (item !== null) {
-      //       // Add non-null items to the result
-      //       result.push(item);
-      //     }
-      //     return result;
-      //   }, []);
-      // }
-
-      // ===========================******************************===============================
-      // let groupedData =[]
-      // data.forEach((item) => {
-      //   const entrance = item.entrance;
-      //   const floor = item.floor;
-      
-      //   // Check if the entrance key already exists in the groupedData object
-      //   if (!groupedData[entrance]) {
-      //     groupedData[entrance] = [];
-      //   }
-      
-      //   // Check if the floor key already exists within the entrance key
-      //   if (!groupedData[entrance][floor]) {
-      //     groupedData[entrance][floor] = [];
-      //   }
-      
-      //   // Add the item to the appropriate group
-      //   groupedData[entrance][floor].push(item);
-      // });
-      
-      // removeNullValues(groupedData)
-     
-       return data
+      if(data){
+        return {success: true, data, message: "Data fetched successfully"}
+      }else {
+        return {success: false, message: "No data found"}
+      }
     }).catch((error) => {
       console.log(error);
     })
