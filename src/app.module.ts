@@ -52,6 +52,12 @@ import { PremissionsModule } from './modules/premissions/premissions.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { OrdersService } from './service/orders.service';
 import { OrdersController } from './controller/orders.controller';
+import { EntrancesController } from './controller/entrances.controller';
+import { EntrancesModule } from './modules/entrances/entrances.module';
+import { EntrancesService } from './service/entrances.service';
+import { FloorsModule } from './modules/floors/floors.module';
+import { FloorsController } from './controller/floors.controller';
+import { FloorsService } from './service/floors.service';
 
 @Module({
   imports: [
@@ -81,6 +87,8 @@ import { OrdersController } from './controller/orders.controller';
     RegionsModule,
     PremissionsModule,
     OrdersModule,
+    EntrancesModule,
+    FloorsModule,
   ],
   controllers: [
     UsersController,
@@ -99,6 +107,8 @@ import { OrdersController } from './controller/orders.controller';
     RegionsController,
     AuthController,
     OrdersController,
+    EntrancesController,
+    FloorsController,
   ],
   providers: [
     UsersService,
@@ -120,6 +130,8 @@ import { OrdersController } from './controller/orders.controller';
     JwtService,
     PremissionsService,
     OrdersService,
+    EntrancesService,
+    FloorsService,
   ],
 })
 export class AppModule {
@@ -129,9 +141,9 @@ export class AppModule {
     private roleServ: RolesService,
     private permissionserv: PremissionsService,
   ) {
-    regionServ.fillDataRegion();
-    distServ.fillDataDistrict();
-    roleServ.filldata();
-    permissionserv.filldata();
+    // regionServ.fillDataRegion();
+    // distServ.fillDataDistrict();
+    // roleServ.filldata();
+    // permissionserv.filldata();
   }
 }

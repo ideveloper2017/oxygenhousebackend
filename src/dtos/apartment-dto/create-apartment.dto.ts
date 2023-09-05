@@ -2,12 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsString } from 'class-validator';
 
 export class CreateApartmentDto {
- 
-  @ApiProperty({ example: 1 })
-  entrance: number;
-
-  @ApiProperty({ example: 1 })
-  floor: number;
 
   @ApiProperty({ example: 4 })
   room_number: number;
