@@ -26,8 +26,8 @@ export class BuildingsService {
     building.mk_price = createBuildingDto.mk_price;
 
     building = await this.buildingRepository.save(building);
-
     console.log(building);
+
     let kv = 1;
     const records = [];
     for (let blok = 1; blok <= building.entrance_number; blok++) {
@@ -57,6 +57,7 @@ export class BuildingsService {
     }
     const result = await this.buildingRepository.manager.getRepository(Apartments)
       .save(records);
+
       return result;
     }
     async findAllBuildings() {
@@ -83,6 +84,7 @@ export class BuildingsService {
     const result = await this.buildingRepository.createQueryBuilder('buildings').select().where('town_id = :town_id',{town_id})
     .getMany()
     
+
     return result
   }
   
