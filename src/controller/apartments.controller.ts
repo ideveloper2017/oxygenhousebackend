@@ -24,12 +24,12 @@ export class ApartmentsController {
     status: 201,
     description: "Kvartira muvaffaqiyatli qo'shildi!",
   })
-  @Post('/new/:building_id')
+  @Post('/new/:floor_id')
   createApartment(
-    @Param('building_id') building_id: number,
+    @Param('floor_id') floor_id: number,
     @Body() createApartmentDto: CreateApartmentDto,
   ) {
-    return this.apartmentsService.addOneApartment(building_id, createApartmentDto);
+    return this.apartmentsService.addOneApartment(floor_id, createApartmentDto);
   }
 
   @ApiOperation({ summary: 'Kvartira tahrirlash' })
@@ -46,7 +46,13 @@ export class ApartmentsController {
   @ApiResponse({ status: 200, description: "Kvartira o'chilidi" })
   @Delete('/delete/:id')
   deleteApartment(@Param('id') id: number) {
-    return this.apartmentsService.deleteApartment(id);
+    return this.apartmentsService.deleteApartment(id).then(data => {
+      if(data.affected != 0) {
+        return {success: true, message: "Apartment deleted"}
+      }else {
+        return {success: false, message: "error while deleting"}
+      }
+    })
   }
 
   @ApiOperation({summary: "Bitta binodagi barcha kvartiralar"})
@@ -57,11 +63,7 @@ export class ApartmentsController {
 
     return this.apartmentsService.getApartmentsOfBuilding(building_id)
     .then((data) => {
-      if(data){
-        return {success: true, data, message: "Data fetched successfully"}
-      }else {
-        return {success: false, message: "No data found"}
-      }
+          return data
     }).catch((error) => {
       console.log(error);
     })

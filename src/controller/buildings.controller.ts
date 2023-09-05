@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
   Res,
@@ -26,7 +25,8 @@ export class BuildingsController {
     return this.buildingsService.createBuilding(createBuildingDto).then(response => {
       if(response.length != 0){
         return {success: true, data: response, message: 'Building added successfully'}
-      }else {
+      }else if(response) {
+        return {success: true, data: response, message: 'Empty building added successfully'}
       }
     })
   }

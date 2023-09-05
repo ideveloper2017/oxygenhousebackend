@@ -13,6 +13,9 @@ export class Entrance extends Model{
     @JoinColumn({name: "building_id"})
     buildings: Buildings
 
-    @OneToMany(type => Floor, floor => floor.entrance )
+    @Column()
+    building_id: number
+
+    @OneToMany(type => Floor, floor => floor.entrance,{onDelete: 'CASCADE'})
     floors: Floor[]
 }

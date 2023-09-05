@@ -16,20 +16,18 @@ export class BuildingsService {
   ) {}
 
   async createBuilding(createBuildingDto: CreateBuildingDto) {
-    const town = new Towns();
-    town.id = createBuildingDto.town_id;
 
     let building = new Buildings();
     building.name = createBuildingDto.name;
-    building.town_id = town;
+    building.town_id = createBuildingDto.town_id
     building.entrance_number = createBuildingDto.entrance_number;
     building.floor_number = createBuildingDto.floor_number;
     building.apartment_number = createBuildingDto.apartment_number;
     building.mk_price = createBuildingDto.mk_price;
 
     building = await this.buildingRepository.save(building);
-    console.log(building);
 
+    console.log(building);
     let kv = 1;
     const records = [];
     for (let blok = 1; blok <= building.entrance_number; blok++) {
@@ -59,7 +57,6 @@ export class BuildingsService {
     }
     const result = await this.buildingRepository.manager.getRepository(Apartments)
       .save(records);
-
       return result;
     }
     async findAllBuildings() {
@@ -86,8 +83,6 @@ export class BuildingsService {
     const result = await this.buildingRepository.createQueryBuilder('buildings').select().where('town_id = :town_id',{town_id})
     .getMany()
     
-    console.log(result);
-
     return result
   }
   
