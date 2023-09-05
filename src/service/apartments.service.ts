@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto';
 import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
 import { Apartments } from 'src/entity/apartments.entity';
-import { Floor } from 'src/entity/floor.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
