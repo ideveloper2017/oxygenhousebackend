@@ -59,8 +59,13 @@ export class TownController {
     return this.townService.deleteTown(id);
   }
 
-  @Get('/info')
-  getTownInfo() {
-    return this.townService.getTownInfo()
+  // @Get('/info')
+  // getTownInfo() {
+  //   return this.townService.getTownInfo()
+  // }
+
+  @Post('/clear-database')
+  clearDatabase () {
+    return this.townService.clearDatabase()
   }
 }

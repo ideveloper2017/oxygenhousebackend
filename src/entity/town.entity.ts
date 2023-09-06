@@ -22,6 +22,6 @@ export class Towns extends Model {
   @Column({ nullable: true })
   logo: string;
 
-  @OneToMany((type) => Buildings, (building) => building.town_id)
-  buildings: Buildings;
+  @OneToMany((type) => Buildings, (building) => building.towns)
+  buildings: Buildings[];
 }
