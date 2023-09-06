@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { EntrancesController } from 'src/controller/entrances.controller';
-import { Entrance } from 'src/entity/entrance.entity';
-import { EntrancesService } from 'src/service/entrances.service';
+import { Entrance } from '../../entity/entrance.entity';
+import { EntrancesController } from '../../controller/entrances.controller';
+import { EntrancesService } from '../../service/entrances.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Entrance])],
-    controllers: [EntrancesController],
-    providers: [EntrancesService],
-    exports: [TypeOrmModule],
+  imports: [TypeOrmModule.forFeature([Entrance])],
+  controllers: [EntrancesController],
+  providers: [EntrancesService],
+  exports: [TypeOrmModule],
 })
-export class EntrancesModule {
-}
+export class EntrancesModule {}

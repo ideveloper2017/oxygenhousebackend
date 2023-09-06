@@ -1,6 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { PaymentDetailsService } from 'src/service/payment_details.service';
+import {PaymentDetailsService} from "../service/payment_details.service";
+
 
 @ApiTags('PaymentDetails')
 @Controller('payment-details')

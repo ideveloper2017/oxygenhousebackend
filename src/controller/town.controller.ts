@@ -9,9 +9,9 @@ import {
   Response,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
-import { UpdateTownDto } from 'src/dtos/town-dto/update-town.dto';
-import { TownService } from 'src/service/town.service';
+import { TownService } from '../service/town.service';
+import { UpdateTownDto } from '../dtos/town-dto/update-town.dto';
+import { CreateTownDto } from '../dtos/town-dto/create-town.dto';
 
 @ApiTags('Towns')
 @Controller('town')
@@ -65,7 +65,7 @@ export class TownController {
   // }
 
   @Post('/clear-database')
-  clearDatabase () {
-    return this.townService.clearDatabase()
+  clearDatabase() {
+    return this.townService.clearDatabase();
   }
 }

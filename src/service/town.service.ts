@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
-import { UpdateTownDto } from 'src/dtos/town-dto/update-town.dto';
-import { Towns } from 'src/entity/town.entity';
 import { DataSource, Repository } from 'typeorm';
+import { Towns } from '../entity/town.entity';
+import { CreateTownDto } from '../dtos/town-dto/create-town.dto';
+import {UpdateTownDto} from "../dtos/town-dto/update-town.dto";
 
 @Injectable()
 export class TownService {

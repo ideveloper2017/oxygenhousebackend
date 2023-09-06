@@ -6,13 +6,13 @@ import { Floor } from './floor.entity';
 
 @Entity('Apartments')
 export class Apartments extends Model {
-  @ManyToOne((type) => Floor, (floor) =>floor.apartments)
+  @ManyToOne((type) => Floor, (floor) => floor.apartments)
   @JoinColumn({ name: 'floor_id' })
-  floor: Floor; 
+  floor: Floor;
 
   @Column()
   floor_id: number;
-  
+
   @Column({ nullable: true })
   room_number: number;
 

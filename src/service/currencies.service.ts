@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCurrencyDto } from 'src/dtos/currency-dto/create-currency.dto';
-import { Currencies } from 'src/entity/currencies.entity';
+import { CreateCurrencyDto } from '../dtos/currency-dto/create-currency.dto';
+import { Currencies } from '../entity/currencies.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -12,12 +12,16 @@ export class CurrenciesService {
   ) {}
 
   async createCurrency(createCurrencyDto: CreateCurrencyDto) {
-    const currency = new Currencies()
-    currency.name = createCurrencyDto.name
-    currency.is_selected = createCurrencyDto.is_selected
+    const currency = new Currencies();
+    currency.name = createCurrencyDto.name;
+    currency.is_selected = createCurrencyDto.is_selected;
 
-    const result = await this.currencyRepo.save(currency)
-    return {status: 201, data: result, message: "Currency added successfully!"}
+    const result = await this.currencyRepo.save(currency);
+    return {
+      status: 201,
+      data: result,
+      message: 'Currency added successfully!',
+    };
   }
 
   async getCurrencies() {

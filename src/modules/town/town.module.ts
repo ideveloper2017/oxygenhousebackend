@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TownController } from 'src/controller/town.controller';
-import { Towns } from 'src/entity/town.entity';
-import { TownService } from 'src/service/town.service';
+import { Towns } from '../../entity/town.entity';
+import { TownService } from '../../service/town.service';
+import { TownController } from '../../controller/town.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Towns])],

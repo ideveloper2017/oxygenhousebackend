@@ -14,7 +14,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DATABASE'),
-        entities: [__dirname + '/../**/*.entity.{js,ts}'],
+        // entities: [__dirname + '/../**/*.entity.{js,ts}'],
+        entities: [
+          __dirname + '/../**/*.entity.ts',
+          __dirname + 'dist/**/*.entity.js',
+        ],
+        migrationsTableName: 'migration',
+        migrations: ['src/migration/*.ts'],
+        cli: {
+          migrationsDir: './src/migration',
+        },
         synchronize: true,
         logging: false,
       }),

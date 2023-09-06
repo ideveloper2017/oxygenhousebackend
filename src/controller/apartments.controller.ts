@@ -9,9 +9,9 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto';
-import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
-import { ApartmentsService } from 'src/service/apartments.service';
+import { CreateApartmentDto } from '../dtos/apartment-dto/create-apartment.dto';
+import { UpdateApartmentDto } from '../dtos/apartment-dto/update-apartment.dto';
+import { ApartmentsService } from '../service/apartments.service';
 import { Response } from 'express';
 
 @ApiTags('Apartments')
@@ -46,26 +46,28 @@ export class ApartmentsController {
   @ApiResponse({ status: 200, description: "Kvartira o'chilidi" })
   @Delete('/delete/:id')
   deleteApartment(@Param('id') id: number) {
-    return this.apartmentsService.deleteApartment(id).then(data => {
-      if(data.affected != 0) {
-        return {success: true, message: "Apartment deleted"}
-      }else {
-        return {success: false, message: "error while deleting"}
+    return this.apartmentsService.deleteApartment(id).then((data) => {
+      if (data.affected != 0) {
+        return { success: true, message: 'Apartment deleted' };
+      } else {
+        return { success: false, message: 'error while deleting' };
       }
-    })
+    });
   }
 
-  @ApiOperation({summary: "Bitta binodagi barcha kvartiralar"})
+  @ApiOperation({ summary: 'Bitta binodagi barcha kvartiralar' })
   @Get('/apartment/:building_id')
   public getApartments(
-    @Param('building_id', ParseIntPipe) building_id: number,res: Response
+    @Param('building_id', ParseIntPipe) building_id: number,
+    res: Response,
   ) {
-
-    return this.apartmentsService.getApartmentsOfBuilding(building_id)
-    .then((data) => {
-          return data
-    }).catch((error) => {
-      console.log(error);
-    })
-     }
+    return this.apartmentsService
+      .getApartmentsOfBuilding(building_id)
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 }
