@@ -64,16 +64,7 @@ export class RegionsController {
         }
       })
       .catch((error) => {
-        throw new HttpException(
-          {
-            status: HttpStatus.FORBIDDEN,
-            error: 'This is a custom message',
-          },
-          HttpStatus.FORBIDDEN,
-          {
-            cause: error,
-          },
-        );
+        res.status(401).send({ success: false, message: error.message });
       });
   }
 
