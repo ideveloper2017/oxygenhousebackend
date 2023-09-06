@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { count } from 'console';
 import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
 import { UpdateTownDto } from 'src/dtos/town-dto/update-town.dto';
-import { Apartments } from 'src/entity/apartments.entity';
-import { Buildings } from 'src/entity/buildings.entity';
 import { Towns } from 'src/entity/town.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 
 @Injectable()
 export class TownService {
@@ -53,25 +50,46 @@ export class TownService {
     return { status: 200, message: "Turar-joy o'chirildi!" };
   }
 
-  async getTownInfo() {
-    const info = await this.townRepository
-      .createQueryBuilder('towns')
-      .leftJoinAndSelect('towns.buildings', 'buildings')
-      .leftJoinAndSelect('buildings.apartments', 'apartments')
-      .loadRelationCountAndMap('towns.buildingCount', 'towns.buildings')
-      .loadRelationCountAndMap(
-        'buildings.apartmentCount',
-        'buildings.apartments',
-      )
-      .select(['towns.name', 'towns.createdAt', 'buildings.name'])
-      .getMany();
+  // async getTownInfo() {
+  //   const info = await this.townRepository
+  //     .createQueryBuilder('towns')
+  //     .leftJoinAndSelect('towns.buildings', 'buildings')
+  //     .leftJoinAndSelect('buildings.apartments', 'apartments')
+  //     .loadRelationCountAndMap('towns.buildingCount', 'towns.buildings')
+  //     .loadRelationCountAndMap(
+  //       'buildings.apartmentCount',
+  //       'buildings.apartments',
+  //     )
+  //     .select(['towns.name', 'towns.createdAt', 'buildings.name'])
+  //     .getMany();
 
-    return {
-      success: true,
-      data: info,
-      message: 'Towns informations fetched successfully',
-    };
+  //   return {
+  //     success: true,
+  //     data: info,
+  //     message: 'Towns informations fetched successfully',
+  //   };
+  // }
+  async clearDatabase() {
+    const appDataSource = new DataSource({
+      type: 'postgres',
+      host: process.env.POSTGRES_HOST,
+      port: Number(process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      entities: [__dirname + '/../**/*.entity.{js,ts}'],
+      synchronize: true,
+      logging: false,
+    });
+    const entities = appDataSource.entityMetadatas;
+
+    console.log(entities);
+    for await (const entity of entities) {
+      const repository = appDataSource.getRepository(entity.name);
+
+      await repository.query(
+        `TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`,
+      );
+    }
   }
-
-  
 }
