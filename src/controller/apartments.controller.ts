@@ -55,17 +55,14 @@ export class ApartmentsController {
     })
   }
 
-  @ApiOperation({summary: "Bitta binodagi barcha kvartiralar"})
-  @Get('/apartment/:building_id')
-  public getApartments(
-    @Param('building_id', ParseIntPipe) building_id: number,res: Response
-  ) {
-
-    return this.apartmentsService.getApartmentsOfBuilding(building_id)
-    .then((data) => {
-          return data
-    }).catch((error) => {
-      console.log(error);
+  @Get('/:id')
+  apartmentInfo(@Param('id') id:number){
+    return this.apartmentsService.apartmentFullInfo(id).then( data => {
+      if(data){
+        return {success: true, data, message: "Apartment info fetched"}
+      }else {
+        return {success: false, message: "error while fetching apartment info"}
+      }
     })
-     }
+  }
 }

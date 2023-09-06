@@ -40,14 +40,10 @@ export class ApartmentsService {
 
     return deletedApartment
   }
-  
-  async getApartmentsOfBuilding(building_id : number) {
 
-    const apartments = await this.apartmentRepository
-    .createQueryBuilder('apartments')
-    .where('building_id = :building_id', {building_id})
-    .getMany()
-    
-    return  apartments
+  async apartmentFullInfo(id:number) {
+    const apartment = await this.apartmentRepository.findOne({where: {id: id }});
+
+    return apartment
   }
 }

@@ -3,6 +3,7 @@ import { IsEnum, IsString } from 'class-validator';
 
 export class CreateApartmentDto {
 
+  
   @ApiProperty({ example: 4 })
   room_number: number;
 
