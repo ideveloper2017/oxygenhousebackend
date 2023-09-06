@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import Model from './model.entity';
-import {Sales} from './sales.entity';
+import { Sales } from './sales.entity';
 import { Orders } from './orders.entity';
 
 @Entity('Clients')
@@ -26,8 +26,8 @@ export class Clients extends Model {
   @Column({ unique: true })
   contact_number: string;
 
-    @Column({nullable: true})
-    date_of_birth: Date;
+  @Column({ nullable: true })
+  date_of_birth: Date;
 
   @Column({ nullable: false, unique: true })
   passport_seria: string;
@@ -35,11 +35,11 @@ export class Clients extends Model {
   @Column({ nullable: false })
   given_from: string;
 
-    @Column({nullable: true})
-    given_date: Date;
+  @Column({ nullable: true })
+  given_date: Date;
 
-    @Column({nullable: true})
-    untill_date: Date;
+  @Column({ nullable: true })
+  untill_date: Date;
 
   @Column({ nullable: true })
   legal_address: string;
@@ -50,8 +50,8 @@ export class Clients extends Model {
   @Column({ nullable: true })
   description: string;
 
-    @OneToMany((type) => Sales, (sales) => sales.client_id)
-    sales: Sales[];
+  @OneToMany((type) => Sales, (sales) => sales.client_id)
+  sales: Sales[];
 
   @OneToMany((type) => Orders, (orders) => orders.clients)
   orders: Orders[];

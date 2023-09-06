@@ -10,7 +10,7 @@ export class Buildings extends Model {
   towns: Towns;
 
   @Column()
-  town_id: number
+  town_id: number;
 
   @Column({ unique: true })
   name: string;
