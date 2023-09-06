@@ -44,6 +44,11 @@ export class TownController {
           message: 'not file records!',
         });
       }
+    }).catch((error)=>{
+      return res.send({
+        success: false,
+        message: error.message,
+      });
     });
   }
 

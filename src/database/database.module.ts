@@ -17,7 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         // entities: [__dirname + '/../**/*.entity.{js,ts}'],
         entities: [
           __dirname + '/../**/*.entity.ts',
-          __dirname + 'dist/**/*.entity.js',
+          __dirname + 'build/**/*.entity.js',
         ],
         migrationsTableName: 'migration',
         migrations: ['src/migration/*.ts'],

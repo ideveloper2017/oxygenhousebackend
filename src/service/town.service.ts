@@ -8,7 +8,8 @@ import { UpdateTownDto } from '../dtos/town-dto/update-town.dto';
 @Injectable()
 export class TownService {
   constructor(
-    @InjectRepository(Towns) private readonly townRepository: Repository<Towns>,
+    @InjectRepository(Towns)
+    private  townRepository: Repository<Towns>,
   ) {}
 
   async createTown(createTownDto: CreateTownDto) {
