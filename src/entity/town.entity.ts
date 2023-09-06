@@ -1,7 +1,6 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import Model from './model.entity';
 import { Buildings } from './buildings.entity';
-
 @Entity('Towns')
 export class Towns extends Model {
   @Column()
