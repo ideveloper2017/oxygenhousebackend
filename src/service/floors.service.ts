@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Entrance } from 'src/entity/entrance.entity';
 import { Floor } from 'src/entity/floor.entity';
 import { Repository } from 'typeorm';
 
@@ -30,5 +29,16 @@ export class FloorsService {
         const floors = await this.floorRepository.find({where: {entrance_id: entrance_id}})
 
         return floors
+    }
+
+    async deleteFloor (id: number){
+        const del = await this.floorRepository.findOne({where: {id: id}, relations:['apartments']})
+        let res
+        if(del){
+             res = await this.floorRepository.delete(id)
+        }else {
+            res = {message: "o'chirib bo'lmaydi"}
+        }
+        return res
     }
 }

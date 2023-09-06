@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Buildings } from 'src/entity/buildings.entity';
 import { Entrance } from 'src/entity/entrance.entity';
 import { Repository } from 'typeorm';
 
@@ -18,7 +17,7 @@ export class EntrancesService {
         // quyida yangi entrance qo'shish kodi
         const newEntrance = new Entrance()
         newEntrance.entrance_number = lastEntrance? lastEntrance.entrance_number+1 : 1
-        newEntrance.building_id = await building_id
+        newEntrance.building_id = building_id
         let res = await this.entanceRepo.save(newEntrance)
 
         return res
@@ -32,7 +31,7 @@ export class EntrancesService {
     async deleteEmptyEnrances(id: number) {
         const del = await this.entanceRepo.findOne({where: {id: id}, relations:['floors']})
         let res
-        if(!del.floors.length){
+        if(del){
              res = await this.entanceRepo.delete(id)
         }else {
             res = {message: "o'chirib bo'lmaydi"}

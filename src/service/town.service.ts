@@ -1,17 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { count } from 'console';
 import { CreateTownDto } from 'src/dtos/town-dto/create-town.dto';
 import { UpdateTownDto } from 'src/dtos/town-dto/update-town.dto';
-import { Apartments } from 'src/entity/apartments.entity';
-import { Buildings } from 'src/entity/buildings.entity';
 import { Towns } from 'src/entity/town.entity';
 import { Repository } from 'typeorm';
+import { RegionsService } from './regions.service';
+import { DistrictsService } from './districts.service';
+import { RolesService } from './roles.service';
+import { PermissionsService } from './permissions.service';
 
 @Injectable()
 export class TownService {
   constructor(
     @InjectRepository(Towns) private readonly townRepository: Repository<Towns>,
+    private readonly regionService: RegionsService,
+    private readonly districtService: DistrictsService,
+    private readonly roleService: RolesService,
+    private readonly permissionService: PermissionsService
   ) {}
 
   async createTown(createTownDto: CreateTownDto) {
@@ -38,40 +43,34 @@ export class TownService {
 
   async updateTown(id: number, updateTownDto: UpdateTownDto) {
     const updatedTown = await this.townRepository.update(id, updateTownDto);
-    if (updatedTown.affected == 0) {
-      return { status: 404, message: 'Turar-joy topilmadi!' };
-    }
-    return { status: 200, message: 'Turar-joy tahrirlandi!' };
+    return updatedTown;
   }
 
   async deleteTown(id: number) {
     const deletedTown = await this.townRepository.delete(id);
-
-    if (deletedTown.affected == 0) {
-      return { status: 404, message: 'Turar-joy topilmadi! ' };
+    return deletedTown;
     }
-    return { status: 200, message: "Turar-joy o'chirildi!" };
-  }
 
-  async getTownInfo() {
-    const info = await this.townRepository
-      .createQueryBuilder('towns')
-      .leftJoinAndSelect('towns.buildings', 'buildings')
-      .leftJoinAndSelect('buildings.apartments', 'apartments')
-      .loadRelationCountAndMap('towns.buildingCount', 'towns.buildings')
-      .loadRelationCountAndMap(
-        'buildings.apartmentCount',
-        'buildings.apartments',
-      )
-      .select(['towns.name', 'towns.createdAt', 'buildings.name'])
-      .getMany();
+  async clearDatabase() {
+    const connection =  this.townRepository.manager.connection
+    let queryRunner = connection.createQueryRunner()
 
-    return {
-      success: true,
-      data: info,
-      message: 'Towns informations fetched successfully',
-    };
-  }
+    const table_names = connection.entityMetadatas.map(entity => entity.tableName)
+    const check=[]
+
+    for await (const table_name of table_names) {
+      // ============================== 2 usul ============================
+      let res = await queryRunner.query(`TRUNCATE TABLE "${table_name}" RESTART IDENTITY CASCADE`);
+      check.push(res)
+    }
+    await this.regionService.fillDataRegion()
+    await this.districtService.fillDataDistrict()
+    await this.roleService.filldata();
+    await this.permissionService.filldata();
+
+    return table_names.length == check.length ? true : false; 
+    
+}
 
   
 }

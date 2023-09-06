@@ -47,8 +47,6 @@ import { CurrenciesService } from './service/currencies.service';
 import { AuthController } from './controller/auth/auth.controller';
 import { AuthService } from './service/auth.service';
 import { JwtService } from '@nestjs/jwt';
-import { PremissionsService } from './service/premissions.service';
-import { PremissionsModule } from './modules/premissions/premissions.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { OrdersService } from './service/orders.service';
 import { OrdersController } from './controller/orders.controller';
@@ -58,6 +56,8 @@ import { EntrancesService } from './service/entrances.service';
 import { FloorsModule } from './modules/floors/floors.module';
 import { FloorsController } from './controller/floors.controller';
 import { FloorsService } from './service/floors.service';
+import { PermissionsService } from './service/permissions.service';
+import { PermissionsModule } from './modules/premissions/premissions.module';
 
 @Module({
   imports: [
@@ -85,7 +85,7 @@ import { FloorsService } from './service/floors.service';
     TownModule,
     CurrenciesModule,
     RegionsModule,
-    PremissionsModule,
+    PermissionsModule,
     OrdersModule,
     EntrancesModule,
     FloorsModule,
@@ -128,7 +128,7 @@ import { FloorsService } from './service/floors.service';
     DistrictsService,
     AuthService,
     JwtService,
-    PremissionsService,
+    PermissionsService,
     OrdersService,
     EntrancesService,
     FloorsService,
@@ -139,11 +139,12 @@ export class AppModule {
     private regionServ: RegionsService,
     private distServ: DistrictsService,
     private roleServ: RolesService,
-    private permissionserv: PremissionsService,
+    private permissionserv: PermissionsService,
   ) {
-    // regionServ.fillDataRegion();
-    // distServ.fillDataDistrict();
-    // roleServ.filldata();
-    // permissionserv.filldata();
+    regionServ.fillDataRegion();
+    distServ.fillDataDistrict();
+    roleServ.filldata();
+    permissionserv.filldata();
+  // bular ochiq turaversin faqat birmarta qoshadigan qildim ******
   }
 }

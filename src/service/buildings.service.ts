@@ -7,6 +7,7 @@ import { Towns } from 'src/entity/town.entity';
 import { Apartments } from 'src/entity/apartments.entity';
 import { Floor } from 'src/entity/floor.entity';
 import { Entrance } from 'src/entity/entrance.entity';
+import { UpdateBuildingDto } from 'src/dtos/building-dto/update-building.dto';
 
 @Injectable()
 export class BuildingsService {
@@ -71,13 +72,16 @@ export class BuildingsService {
     });
   }
 
+  async updateBuilding(id: number, updateBuildingDto: UpdateBuildingDto){
+    const building = await this.buildingRepository.update({id:id}, updateBuildingDto)
+
+    return building
+  }
+
   async deleteBuilding(id: number) {
 
     const result = await this.buildingRepository.delete(id);
-    if (result.affected != 0) {
-      return { status: 200, data: [], message: "Bino o'chirildi" };
-    }
-    return { status: 404, data: [], message: 'Bino topilmadi' };
+    return result
   }
 
   async getBuldingsOfTown(town_id: number) {

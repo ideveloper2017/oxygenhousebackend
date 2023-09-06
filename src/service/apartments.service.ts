@@ -29,25 +29,16 @@ export class ApartmentsService {
       { id: id },
       updateApartmentDto,
     );
-    if (editedApartment.affected == 0) {
-      return { status: 404, message: 'Kvartira topilmadi' };
-    }
-    return { status: 200, message: 'Kvartira tahrirlandi' };
+  return editedApartment  
   }
 
   async deleteApartment(id: number) {
     const deletedApartment = await this.apartmentRepository.delete(id);
-
     return deletedApartment
   }
   
-  async getApartmentsByOrder(building_id : number) {
-
-    const apartments = await this.apartmentRepository
-    .createQueryBuilder('apartments')
-    .where('building_id = :building_id', {building_id})
-    .getMany()
-    
+  async getApartments(floor_id : number) {
+    const apartments = await this.apartmentRepository.find({where: {floor_id: floor_id}})
     return  apartments
   }
 }

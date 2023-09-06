@@ -5,13 +5,19 @@ import { Users } from './users.entity';
 
 @Entity('Sales')
 export class Sales extends Model {
-  @ManyToOne((type) => Users)
+  @ManyToOne((type) => Users, users => users.sales)
   @JoinColumn({ name: 'user_id' })
   users: Users;
 
-  @ManyToOne((type) => Clients)
+  @Column()
+  user_id: number
+
+  @ManyToOne((type) => Clients, clients => clients.sales)
   @JoinColumn({ name: 'client_id' })
-  client_id: Clients;
+  clients: Clients;
+
+  @Column()
+  client_id: number
 
   @Column()
   total_price: number;

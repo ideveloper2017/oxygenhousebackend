@@ -24,7 +24,9 @@ export class TownController {
   })
   @Post('/add')
   createTown(@Body() createTownDto: CreateTownDto) {
-    return this.townService.createTown(createTownDto);
+    return this.townService.createTown(createTownDto).then(data => {
+      
+    })
   }
 
   @ApiOperation({ summary: "mavjud turar-joylarni ro'yxatini olish" })
@@ -40,27 +42,44 @@ export class TownController {
       } else {
         return res.send({
           success: false,
-          data: null,
-          message: 'not file records!',
+          message: 'No data found',
         });
       }
-    });
+    }).catch(error => console.log(error));
   }
 
   @ApiOperation({ summary: 'Turar-joyni tahrirlash' })
   @Patch('/edit/:id')
   updateTown(@Param('id') id: number, @Body() updateTownDto: UpdateTownDto) {
-    return this.townService.updateTown(id, updateTownDto);
+    return this.townService.updateTown(id, updateTownDto).then(data => {
+      if (data.affected == 0) {
+        return { success: false, message: 'Turar-joy topilmadi!' };
+      }
+      return { success: true, message: 'Turar-joy tahrirlandi!' };
+    
+    }).catch(error => console.log(error));
   }
 
   @ApiOperation({ summary: "Turar-joyni o'chirish" })
   @Delete('/delete/:id')
   deleteTown(@Param('id') id: number) {
-    return this.townService.deleteTown(id);
+    return this.townService.deleteTown(id).then(data => {
+      if (data.affected == 0) {
+        return { success: false, message: 'Turar-joy topilmadi! ' };
+      }
+      return { success: true, message: "Turar-joy o'chirildi!" };
+    
+    })
   }
 
-  @Get('/info')
-  getTownInfo() {
-    return this.townService.getTownInfo()
-  }
-}
+  @ApiOperation({ summary: `EHTIYOT BO'LAMIZ ⛔⛔⛔ BU REQUEST BAZANI TOZALAB YUBORADI `})
+  @Delete('/clear-database')
+  truncateDatabase() {
+    return this.townService.clearDatabase().then(data => {
+      if (data){
+        return {success: true, message: "Database tozalandi ✅"}
+      }else {
+        return {success: false, message: "Database tozalashda xatolik ❌"}
+      }
+    })
+  }}

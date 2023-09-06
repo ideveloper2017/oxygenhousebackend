@@ -12,9 +12,6 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateApartmentDto } from 'src/dtos/apartment-dto/create-apartment.dto';
 import { UpdateApartmentDto } from 'src/dtos/apartment-dto/update-apartment.dto';
 import { ApartmentsService } from 'src/service/apartments.service';
-import { Buildings } from '../entity/buildings.entity';
-import { Response } from 'express';
-import { Apartments } from 'src/entity/apartments.entity';
 
 @ApiTags('Apartments')
 @Controller('apartments')
@@ -41,7 +38,13 @@ export class ApartmentsController {
     @Param('id') id: number,
     @Body() updateApartmentDto: UpdateApartmentDto,
   ) {
-    return this.apartmentsService.updateApartment(id, updateApartmentDto);
+    return this.apartmentsService.updateApartment(id, updateApartmentDto).then(data => {
+      if (data.affected == 0) {
+        return { success: false,  message: 'Kvartira topilmadi' };
+      }
+      return { success: true, message: 'Kvartira tahrirlandi' };
+    
+    }).catch(error => console.log(error));
   }
 
   @ApiOperation({ summary: "Kvartirani ro'yxatdan o'chirish" })
@@ -54,20 +57,20 @@ export class ApartmentsController {
       }else {
         return {success: false, message: "error while deleting"}
       }
-    })
+    }).catch(error => console.log(error))
   }
 
   @ApiOperation({summary: "Bitta binodagi barcha kvartiralar"})
-  @Get('/apartment/:building_id')
+  @Get('/get/:floor_id')
   public getApartments(
-    @Param('building_id', ParseIntPipe) building_id: number,res: Response
-  ) {
-
-    return this.apartmentsService.getApartmentsByOrder(building_id)
+    @Param('floor_id', ParseIntPipe) floor_id: number,res: Response) {
+    return this.apartmentsService.getApartments(floor_id)
     .then((data) => {
-          return data
-    }).catch((error) => {
-      console.log(error);
-    })
+          if(data.length != 0 ){
+            return {success: true, data, message:"Fetched data"}
+          }else {
+            return {success: false, message: "Not found record"}
+          }
+  }).catch(error => console.log(error))
      }
 }

@@ -33,16 +33,21 @@ export class DistrictsService {
 
   public fillDataDistrict = async () => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const fs = require('fs');
-    fs.readFile('data/districts.json', (err, data) => {
-      if (err) throw err;
-      const districts = JSON.parse(data);
-      for (const ii in districts) {
-        const id = districts[ii].id;
-        const region_id = districts[ii].region_id;
-        const name = districts[ii].name_uz;
-        this.districtRepo.save([{ id: id, region: region_id, name: name }]);
-      }
-    });
-  };
+    const allDistricts = await this.districtRepo.find()
+    
+    if(allDistricts.length == 0){
+
+      const fs = require('fs');
+      fs.readFile('data/districts.json', (err, data) => {
+        if (err) throw err;
+        const districts = JSON.parse(data);
+        for (const ii in districts) {
+          const id = districts[ii].id;
+          const region_id = districts[ii].region_id;
+          const name = districts[ii].name_uz;
+          this.districtRepo.save([{ id: id, region: region_id, name: name }]);
+        }
+      });
+    };
+  }
 }

@@ -69,18 +69,26 @@ export class BuildingsController {
     });
   }
 
-  @ApiOperation({ summary: 'Bino tahrirlash' })
-  @Patch('/edit/:id')
-  editBuilding(
-    @Param('id') id: number,
-    @Body() updateBuildingDto: UpdateBuildingDto,
-  ) {
-    //return this.buildingsService.updateBuilding(id, updateBuildingDto);
+    @ApiOperation({ summary: 'Bino tahrirlash' })
+    @Patch('/edit/:id')
+    editBuilding(@Param('id') id: number, @Body() updateBuildingDto: UpdateBuildingDto,) {
+    return this.buildingsService.updateBuilding(id, updateBuildingDto).then(data => {
+      if(data.affected){
+        return {success: true, message: "Bino tahrirlandi."}
+      }else {
+        return {success: false, message:"Bino topilmadi."}
+      }
+    }).catch(error => console.log(error))
   }
 
   @ApiOperation({ summary: "Bino o'chirish" })
   @Delete('/delete/:id')
   deleteBuilding(@Param('id') id: number) {
-    return this.buildingsService.deleteBuilding(id);
+    return this.buildingsService.deleteBuilding(id).then(data => {
+      if (data.affected != 0) {
+        return { success: true, message: "Bino o'chirildi" };
+      }
+      return { success: false, message: 'Bino topilmadi' };
+    }).catch(error => console.log(error))
   }
 }

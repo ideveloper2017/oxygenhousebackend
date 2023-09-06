@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FloorsService } from 'src/service/floors.service';
 
@@ -29,4 +29,9 @@ export class FloorsController {
         return this.floorService.getFloorOfEntrance(entrance_id)
     }
 
+    @ApiOperation({summary: "bo'sh podyezni o'chirish"})
+    @Delete('/delete/:id')
+    deleteEmptyEntrances(@Param('id') id: number) {
+        return this.floorService.deleteFloor(id)
+    }
 }

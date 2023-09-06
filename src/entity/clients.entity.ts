@@ -50,9 +50,9 @@ export class Clients extends Model {
     @Column({nullable: true})
     description: string;
 
-    @OneToMany((type) => Sales, (sales) => sales.client_id)
+    @OneToMany((type) => Sales, (sales) => sales.clients)
     sales: Sales[];
 
-    @OneToMany((type) => Orders, (orders) => orders.client_id)
+    @OneToMany((type) => Orders, (orders) => orders.clients)
     orders: Orders[];
 }
