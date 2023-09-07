@@ -27,7 +27,6 @@ export class BuildingsService {
     building.mk_price = createBuildingDto.mk_price;
 
     building = await this.buildingRepository.save(building);
-    console.log(building);
 
     let kv = 1;
     const records = [];

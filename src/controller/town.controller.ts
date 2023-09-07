@@ -24,9 +24,7 @@ export class TownController {
   })
   @Post('/add')
   createTown(@Body() createTownDto: CreateTownDto) {
-    return this.townService.createTown(createTownDto).then(data => {
-      
-    })
+    return this.townService.createTown(createTownDto)
   }
 
   @ApiOperation({ summary: "mavjud turar-joylarni ro'yxatini olish" })
